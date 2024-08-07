@@ -28,23 +28,40 @@ class Fixed_Analysis: public MpdAnalysisTask {
     Fixed_Analysis() {}
     Fixed_Analysis(const char *name, const char *outputName = "taskName");
     ~Fixed_Analysis() {} // TODO: normal descructor with cleaning off histos
+    void init_Profile2D();
+    void init_Hist1D();
+    void init_Hist2D();
     void UserInit();
     void ProcessEvent(MpdAnalysisEvent &event);
     void Finish();
+    
 
     TClonesArray *fMCTracks = nullptr;
 
 
   protected:
+    struct axis1D
+    {
+      char X[70];
+    };
 
-    //char titulos[1][70]={"Hola"};
-    // Histograms
-
-    //"DiffPt_DCA_Profile_Cuts","Cut  ;  ; #frac{|pT_{Reco} - pT_{MC}|}{pT_{MC}}",100,
     struct axis2D
     {
       char X[70];
       char Y[70];
+    };
+
+    struct axis3D
+    {
+      char X[70];
+      char Y[70];
+      char Z[70];
+    };
+
+    struct interval1D
+    {
+      Double_t Xlow;
+      Double_t Xup;
     };
 
     struct interval2D
@@ -53,6 +70,15 @@ class Fixed_Analysis: public MpdAnalysisTask {
       Double_t Xup;
       Double_t Ylow;
       Double_t Yup;
+    };
+    struct interval3D
+    {
+      Double_t Xlow;
+      Double_t Xup;
+      Double_t Ylow;
+      Double_t Yup;
+      Double_t Zlow;
+      Double_t Zup;
     };
     struct bin2D
     {
@@ -64,8 +90,40 @@ class Fixed_Analysis: public MpdAnalysisTask {
     {
       Int_t X;
     };
-    
 
+// ---- Arrays of Histograms---------
+//How to use it
+  //Lets use a TH1F Primary, Secondary, All particles as an example
+  //For each title on HistPST1_titles it will create a Histogram of Primary, Secondary and All.
+  //The number of titles should be indicated on NumHistPST1.
+  //Finally for each title you should put the name, the interval and the number of bins of the x axis
+
+
+  //It creates a TH1F for Primary , Secondary or All particles
+    const static int NumHistPST1 = 3;
+    char HistPST1_titles[NumHistPST1][300]={"DCA"
+                                            ,"DCA Nhits"
+                                            ,"DCA #eta"                                              
+                                            };
+
+    axis1D HistPST1_axis[NumHistPST1] = {{"DCA (cm)"}
+                                        ,{"DCA (cm)"}
+                                        ,{"DCA (cm)"}
+                                        };
+    interval1D HistPST1_inter[NumHistPST1] = {{0,5} 
+                                              ,{0,5}
+                                              ,{0,5}
+                                              };
+
+    bin1D HistPST1_bins[NumHistPST1] = {{100}
+                                        ,{100} 
+                                        ,{100}
+                                        };
+
+    TH1F *HistPST1[3][NumHistPST1];
+
+  //It creates a TProfile for Primary , Secondary or All particles
+      
     const static int NumProf1 = 9;
     char Prof1_titles[NumProf1][70]={"#eta vs #Delta p_{T}"
                                     ,"DCA vs #Delta p_{T}"
@@ -112,7 +170,7 @@ class Fixed_Analysis: public MpdAnalysisTask {
 
     TProfile *Prof1[3][NumProf1];
 
-
+    //It creates a TH2F for each MC Primary, Secondary and All particles, Reco Primary, Secondary and All particles
     const static int NumHistPST2 = 1;
     char HistPST2_titles[NumHistPST2][300]={"#eta vs p_{T}"
                                            };
@@ -129,76 +187,60 @@ class Fixed_Analysis: public MpdAnalysisTask {
 
     TH2F *HistPriSecTot2[2][3][NumHistPST2];
 
-//
-
-    struct interval3D
-    {
-      Double_t Xlow;
-      Double_t Xup;
-      Double_t Ylow;
-      Double_t Yup;
-      Double_t Zlow;
-      Double_t Zup;
-    };
-
-    struct axis3D
-    {
-      char X[70];
-      char Y[70];
-      char Z[70];
-    };
-
-    const static int NumProf3 = 1;
+    //It creates a TProfile3D for Primary , Secondary or All particles
+    const static int NumProf3 = 4;
     char Prof3D_titles[NumProf3][70]={"#eta vs pT"
-                                          };
+                                     ,"#eta vs pT cut Nhits"
+                                     ,"#eta vs pT cut #eta"
+                                     ,"#eta vs pT all cuts"
+                                     };
 
     axis3D Prof3D_axis[NumProf3] = {{"#eta","pT"," #Delta pT"}
-                                        };
+                                   ,{"#eta","pT"," #Delta pT"}
+                                   ,{"#eta","pT"," #Delta pT"}
+                                   ,{"#eta","pT"," #Delta pT"}
+                                   };
     interval3D Prof3D_inter[NumProf3] = {{-4,4,0,5,0,4}
-                                             };
+                                        ,{-4,4,0,5,0,4}
+                                        ,{-4,4,0,5,0,4}
+                                        ,{-4,4,0,5,0,4}
+                                        };
 
     bin2D Prof3D_bins[NumProf3] = {{100,100}
-                                       };
+                                  ,{100,100}
+                                  ,{100,100}
+                                  ,{100,100}
+                                  };
 
-    TProfile2D *Prof3D[2][3][NumProf3];
-    
+    TProfile2D *Prof3D[3][NumProf3];
 
     TH1F *Hist_MC_ZVertex = nullptr;
     TH1F *Hist_R_ZVertex = nullptr;
-    TH2F *Hist_MC_NTrack_ZVertex = nullptr;
-    TH2F *Hist_R_NTrack_ZVertex = nullptr;
     TH1F *Hist_Chi = nullptr;
-    TH2F *Hist_MC_Chi_zVertex = nullptr;
-    TH2F *Hist_R_Chi_zVertex = nullptr;
     TH1F *Hist_Multipl_MC = nullptr;
     TH1F *Hist_Multipl_R = nullptr;
-    TH2F *Hist_b_Vertex = nullptr;
     TH1F *Hist_b = nullptr;
+    TH1F *MC_pT = nullptr;
+    TH1F *Reco_pT = nullptr;
+    TH1F *hRefMult = nullptr;
+
+    TH2F *hBvsRefMult = nullptr;
+    TH2F *Hist_MC_NTrack_ZVertex = nullptr;
+    TH2F *Hist_R_NTrack_ZVertex = nullptr;
+    TH2F *Hist_MC_Chi_zVertex = nullptr;
+    TH2F *Hist_R_Chi_zVertex = nullptr;
+    TH2F *Hist_b_Vertex = nullptr;
     TH2F *Hist_b_Multiplicity_R = nullptr;
     TH2F *Hist_Diff_ZVertex_b = nullptr;
     TH2F *Hist_Diff_ZVertex_NTracks = nullptr;
+    TH2F *ZVertex_NTracksMC = nullptr;
+
     TProfile *Profile_Diff_Vertex_b = nullptr;
     TProfile *Profile_Diff_Vertex_NTracks = nullptr;
+
     TProfile2D *Prof_2D_eta_pt_DPT_Reco = nullptr;
     TProfile2D *Prof_2D_eta_pt_DPT_MC = nullptr;
 
-
-    TH1F *hRefMult = nullptr;
-    TH2F *hBvsRefMult = nullptr;
-
-
-      //Resolution pT
-    TH2F *Hist_Pt_Eta_Reco = nullptr;
-    TH2F *Hist_Pt_Eta_MC = nullptr;
-    
-
-    TProfile *Profile_Diff_Pt_Eta[2];
-    TProfile *Profile_Diff_Pt_DCA = nullptr;
-    TProfile *Profile_Diff_Pt_NumHits = nullptr;
-
-    TProfile *Profile_Diff_Pt_Eta_Cuts = nullptr;
-    TProfile *Profile_Diff_Pt_DCA_Cuts = nullptr;
-    TProfile *Profile_Diff_Pt_NumHits_Cuts = nullptr;
 
     //  Branches
     TClonesArray *fVertex = nullptr;
@@ -206,7 +248,7 @@ class Fixed_Analysis: public MpdAnalysisTask {
 
     MpdVertex *Vertex = nullptr;
 
-
+    
 
   private:
 
