@@ -1,1 +1,0 @@
-/eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2000.reco.root
