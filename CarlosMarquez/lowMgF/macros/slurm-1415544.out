@@ -1,0 +1,312 @@
+Script called without parameters. Defaulting to latest version of modules. For certain version use:
+login.sh legacy - for packages from before 23.09.23 release
+login.sh latest - for packages starting from 23.09.23 release
+
+Processing RunAnalyses.C...
+MpdAnalysisManager: adding taks pCentr
+MpdAnalysisManager: adding taks taskEner
+Counted 2 tasks to process
+Opening output file for writing pCentr.root
+Opening output file for writing taskEner.root
+[MpdCentralityAll]: Initialization ... 
+Read input text file: pCentr.txt
+#-------Parameters used for evCentrality analysis------
+# Event selection: 
+mZvtxCut       130 // cut on vertex z coordinate
+# Track cuts:  
+mNofHitsCut    10  // minimal number of hits to accept track
+mEtaCut        0.5  // maximal pseudorapidity accepted
+mPtminCut      0.1  // minimal pt used in analysis
+mDcaCut        2  // maximal DCA accepted
+# Production selection: 
+mProdGenerator Req28-UrQMD  // Production-Generator
+mInFileConvert nTr_Centr_Req28-UrQMD.root  // Input file with track-to-centrality converter
+# Track efficiecny corrections: 
+mInFileTrEff   TrackRecEff.root  // Input file with track efficiecny corrections
+------------------------------------------
+[MpdCentralityAll]: Reading out nTrack-to-Centrality conversion table from file nTr_Centr_Req28-UrQMD.root
+[MpdCentralityAll]: Reading out track reconstruction values from file TrackRecEff.root
+[MpdCentralityAll]: Initialization done 
+
+EnerClass1::Initialization
+MpdPid::Init()..
+ERROR! Unknown tracking method! Switch to default ("CFHM").
+Incorrect generator string! Switching to DEFAULT...
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2000.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2001.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2002.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2003.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2004.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2005.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2006.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2007.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2008.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2009.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-200.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2010.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2011.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2012.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2013.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2014.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2015.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2016.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2017.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2018.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2019.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-201.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2020.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2021.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2022.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2023.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2024.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2025.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2026.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2027.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2028.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2029.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-202.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2030.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2031.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2032.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2033.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2034.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2035.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2036.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2037.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2038.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2039.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-203.reco.root
+Adding to chain: /eos/nica/mpd/sim/data/exp/dst-BiBi-09.2GeV-mp07-22-500ev-req28/BiBi/09.2GeV-mb/urqmd/BiBi-09.2GeV-mp07-22-500ev-req28/urqmd-BiBi-09.2GeV-mb-eos0-500-2040.reco.root
+Chain created
+void MpdKalmanFilter::InitializeField(FairField* )
+
+ -I- Using the default constant magnetic field Bz = 5 kG 
+ -I- The magnetic field at (0,0,0) = (0,0,5) kG
+MpdAnalysisManager: number of events to process 22500
+MpdAnalysisManager: processing event 0 of 22500
+MpdAnalysisManager: processing event 100 of 22500
+MpdAnalysisManager: processing event 200 of 22500
+MpdAnalysisManager: processing event 300 of 22500
+MpdAnalysisManager: processing event 400 of 22500
+MpdAnalysisManager: processing event 500 of 22500
+MpdAnalysisManager: processing event 600 of 22500
+MpdAnalysisManager: processing event 700 of 22500
+MpdAnalysisManager: processing event 800 of 22500
+MpdAnalysisManager: processing event 900 of 22500
+MpdAnalysisManager: processing event 1000 of 22500
+MpdAnalysisManager: processing event 1100 of 22500
+MpdAnalysisManager: processing event 1200 of 22500
+MpdAnalysisManager: processing event 1300 of 22500
+MpdAnalysisManager: processing event 1400 of 22500
+MpdAnalysisManager: processing event 1500 of 22500
+MpdAnalysisManager: processing event 1600 of 22500
+MpdAnalysisManager: processing event 1700 of 22500
+MpdAnalysisManager: processing event 1800 of 22500
+MpdAnalysisManager: processing event 1900 of 22500
+MpdAnalysisManager: processing event 2000 of 22500
+MpdAnalysisManager: processing event 2100 of 22500
+MpdAnalysisManager: processing event 2200 of 22500
+MpdAnalysisManager: processing event 2300 of 22500
+MpdAnalysisManager: processing event 2400 of 22500
+MpdAnalysisManager: processing event 2500 of 22500
+MpdAnalysisManager: processing event 2600 of 22500
+MpdAnalysisManager: processing event 2700 of 22500
+MpdAnalysisManager: processing event 2800 of 22500
+MpdAnalysisManager: processing event 2900 of 22500
+MpdAnalysisManager: processing event 3000 of 22500
+MpdAnalysisManager: processing event 3100 of 22500
+MpdAnalysisManager: processing event 3200 of 22500
+MpdAnalysisManager: processing event 3300 of 22500
+MpdAnalysisManager: processing event 3400 of 22500
+MpdAnalysisManager: processing event 3500 of 22500
+MpdAnalysisManager: processing event 3600 of 22500
+MpdAnalysisManager: processing event 3700 of 22500
+MpdAnalysisManager: processing event 3800 of 22500
+MpdAnalysisManager: processing event 3900 of 22500
+MpdAnalysisManager: processing event 4000 of 22500
+MpdAnalysisManager: processing event 4100 of 22500
+MpdAnalysisManager: processing event 4200 of 22500
+MpdAnalysisManager: processing event 4300 of 22500
+MpdAnalysisManager: processing event 4400 of 22500
+MpdAnalysisManager: processing event 4500 of 22500
+MpdAnalysisManager: processing event 4600 of 22500
+MpdAnalysisManager: processing event 4700 of 22500
+MpdAnalysisManager: processing event 4800 of 22500
+MpdAnalysisManager: processing event 4900 of 22500
+MpdAnalysisManager: processing event 5000 of 22500
+MpdAnalysisManager: processing event 5100 of 22500
+MpdAnalysisManager: processing event 5200 of 22500
+MpdAnalysisManager: processing event 5300 of 22500
+MpdAnalysisManager: processing event 5400 of 22500
+MpdAnalysisManager: processing event 5500 of 22500
+MpdAnalysisManager: processing event 5600 of 22500
+MpdAnalysisManager: processing event 5700 of 22500
+MpdAnalysisManager: processing event 5800 of 22500
+MpdAnalysisManager: processing event 5900 of 22500
+MpdAnalysisManager: processing event 6000 of 22500
+MpdAnalysisManager: processing event 6100 of 22500
+MpdAnalysisManager: processing event 6200 of 22500
+MpdAnalysisManager: processing event 6300 of 22500
+MpdAnalysisManager: processing event 6400 of 22500
+MpdAnalysisManager: processing event 6500 of 22500
+MpdAnalysisManager: processing event 6600 of 22500
+MpdAnalysisManager: processing event 6700 of 22500
+MpdAnalysisManager: processing event 6800 of 22500
+MpdAnalysisManager: processing event 6900 of 22500
+MpdAnalysisManager: processing event 7000 of 22500
+MpdAnalysisManager: processing event 7100 of 22500
+MpdAnalysisManager: processing event 7200 of 22500
+MpdAnalysisManager: processing event 7300 of 22500
+MpdAnalysisManager: processing event 7400 of 22500
+MpdAnalysisManager: processing event 7500 of 22500
+MpdAnalysisManager: processing event 7600 of 22500
+MpdAnalysisManager: processing event 7700 of 22500
+MpdAnalysisManager: processing event 7800 of 22500
+MpdAnalysisManager: processing event 7900 of 22500
+MpdAnalysisManager: processing event 8000 of 22500
+MpdAnalysisManager: processing event 8100 of 22500
+MpdAnalysisManager: processing event 8200 of 22500
+MpdAnalysisManager: processing event 8300 of 22500
+MpdAnalysisManager: processing event 8400 of 22500
+MpdAnalysisManager: processing event 8500 of 22500
+MpdAnalysisManager: processing event 8600 of 22500
+MpdAnalysisManager: processing event 8700 of 22500
+MpdAnalysisManager: processing event 8800 of 22500
+MpdAnalysisManager: processing event 8900 of 22500
+MpdAnalysisManager: processing event 9000 of 22500
+MpdAnalysisManager: processing event 9100 of 22500
+MpdAnalysisManager: processing event 9200 of 22500
+MpdAnalysisManager: processing event 9300 of 22500
+MpdAnalysisManager: processing event 9400 of 22500
+MpdAnalysisManager: processing event 9500 of 22500
+MpdAnalysisManager: processing event 9600 of 22500
+MpdAnalysisManager: processing event 9700 of 22500
+MpdAnalysisManager: processing event 9800 of 22500
+MpdAnalysisManager: processing event 9900 of 22500
+MpdAnalysisManager: processing event 10000 of 22500
+MpdAnalysisManager: processing event 10100 of 22500
+MpdAnalysisManager: processing event 10200 of 22500
+MpdAnalysisManager: processing event 10300 of 22500
+MpdAnalysisManager: processing event 10400 of 22500
+MpdAnalysisManager: processing event 10500 of 22500
+MpdAnalysisManager: processing event 10600 of 22500
+MpdAnalysisManager: processing event 10700 of 22500
+MpdAnalysisManager: processing event 10800 of 22500
+MpdAnalysisManager: processing event 10900 of 22500
+MpdAnalysisManager: processing event 11000 of 22500
+MpdAnalysisManager: processing event 11100 of 22500
+MpdAnalysisManager: processing event 11200 of 22500
+MpdAnalysisManager: processing event 11300 of 22500
+MpdAnalysisManager: processing event 11400 of 22500
+MpdAnalysisManager: processing event 11500 of 22500
+MpdAnalysisManager: processing event 11600 of 22500
+MpdAnalysisManager: processing event 11700 of 22500
+MpdAnalysisManager: processing event 11800 of 22500
+MpdAnalysisManager: processing event 11900 of 22500
+MpdAnalysisManager: processing event 12000 of 22500
+MpdAnalysisManager: processing event 12100 of 22500
+MpdAnalysisManager: processing event 12200 of 22500
+MpdAnalysisManager: processing event 12300 of 22500
+MpdAnalysisManager: processing event 12400 of 22500
+MpdAnalysisManager: processing event 12500 of 22500
+MpdAnalysisManager: processing event 12600 of 22500
+MpdAnalysisManager: processing event 12700 of 22500
+MpdAnalysisManager: processing event 12800 of 22500
+MpdAnalysisManager: processing event 12900 of 22500
+MpdAnalysisManager: processing event 13000 of 22500
+MpdAnalysisManager: processing event 13100 of 22500
+MpdAnalysisManager: processing event 13200 of 22500
+MpdAnalysisManager: processing event 13300 of 22500
+MpdAnalysisManager: processing event 13400 of 22500
+MpdAnalysisManager: processing event 13500 of 22500
+MpdAnalysisManager: processing event 13600 of 22500
+MpdAnalysisManager: processing event 13700 of 22500
+MpdAnalysisManager: processing event 13800 of 22500
+MpdAnalysisManager: processing event 13900 of 22500
+MpdAnalysisManager: processing event 14000 of 22500
+MpdAnalysisManager: processing event 14100 of 22500
+MpdAnalysisManager: processing event 14200 of 22500
+MpdAnalysisManager: processing event 14300 of 22500
+MpdAnalysisManager: processing event 14400 of 22500
+MpdAnalysisManager: processing event 14500 of 22500
+MpdAnalysisManager: processing event 14600 of 22500
+MpdAnalysisManager: processing event 14700 of 22500
+MpdAnalysisManager: processing event 14800 of 22500
+MpdAnalysisManager: processing event 14900 of 22500
+MpdAnalysisManager: processing event 15000 of 22500
+MpdAnalysisManager: processing event 15100 of 22500
+MpdAnalysisManager: processing event 15200 of 22500
+MpdAnalysisManager: processing event 15300 of 22500
+MpdAnalysisManager: processing event 15400 of 22500
+MpdAnalysisManager: processing event 15500 of 22500
+MpdAnalysisManager: processing event 15600 of 22500
+MpdAnalysisManager: processing event 15700 of 22500
+MpdAnalysisManager: processing event 15800 of 22500
+MpdAnalysisManager: processing event 15900 of 22500
+MpdAnalysisManager: processing event 16000 of 22500
+MpdAnalysisManager: processing event 16100 of 22500
+MpdAnalysisManager: processing event 16200 of 22500
+MpdAnalysisManager: processing event 16300 of 22500
+MpdAnalysisManager: processing event 16400 of 22500
+MpdAnalysisManager: processing event 16500 of 22500
+MpdAnalysisManager: processing event 16600 of 22500
+MpdAnalysisManager: processing event 16700 of 22500
+MpdAnalysisManager: processing event 16800 of 22500
+MpdAnalysisManager: processing event 16900 of 22500
+MpdAnalysisManager: processing event 17000 of 22500
+MpdAnalysisManager: processing event 17100 of 22500
+MpdAnalysisManager: processing event 17200 of 22500
+MpdAnalysisManager: processing event 17300 of 22500
+MpdAnalysisManager: processing event 17400 of 22500
+MpdAnalysisManager: processing event 17500 of 22500
+MpdAnalysisManager: processing event 17600 of 22500
+MpdAnalysisManager: processing event 17700 of 22500
+MpdAnalysisManager: processing event 17800 of 22500
+MpdAnalysisManager: processing event 17900 of 22500
+MpdAnalysisManager: processing event 18000 of 22500
+MpdAnalysisManager: processing event 18100 of 22500
+MpdAnalysisManager: processing event 18200 of 22500
+MpdAnalysisManager: processing event 18300 of 22500
+MpdAnalysisManager: processing event 18400 of 22500
+MpdAnalysisManager: processing event 18500 of 22500
+MpdAnalysisManager: processing event 18600 of 22500
+MpdAnalysisManager: processing event 18700 of 22500
+MpdAnalysisManager: processing event 18800 of 22500
+MpdAnalysisManager: processing event 18900 of 22500
+MpdAnalysisManager: processing event 19000 of 22500
+MpdAnalysisManager: processing event 19100 of 22500
+MpdAnalysisManager: processing event 19200 of 22500
+MpdAnalysisManager: processing event 19300 of 22500
+MpdAnalysisManager: processing event 19400 of 22500
+MpdAnalysisManager: processing event 19500 of 22500
+MpdAnalysisManager: processing event 19600 of 22500
+MpdAnalysisManager: processing event 19700 of 22500
+MpdAnalysisManager: processing event 19800 of 22500
+MpdAnalysisManager: processing event 19900 of 22500
+MpdAnalysisManager: processing event 20000 of 22500
+MpdAnalysisManager: processing event 20100 of 22500
+MpdAnalysisManager: processing event 20200 of 22500
+MpdAnalysisManager: processing event 20300 of 22500
+MpdAnalysisManager: processing event 20400 of 22500
+MpdAnalysisManager: processing event 20500 of 22500
+MpdAnalysisManager: processing event 20600 of 22500
+MpdAnalysisManager: processing event 20700 of 22500
+MpdAnalysisManager: processing event 20800 of 22500
+MpdAnalysisManager: processing event 20900 of 22500
+MpdAnalysisManager: processing event 21000 of 22500
+MpdAnalysisManager: processing event 21100 of 22500
+MpdAnalysisManager: processing event 21200 of 22500
+MpdAnalysisManager: processing event 21300 of 22500
+MpdAnalysisManager: processing event 21400 of 22500
+MpdAnalysisManager: processing event 21500 of 22500
+MpdAnalysisManager: processing event 21600 of 22500
+MpdAnalysisManager: processing event 21700 of 22500
+MpdAnalysisManager: processing event 21800 of 22500
+MpdAnalysisManager: processing event 21900 of 22500
+MpdAnalysisManager: processing event 22000 of 22500
+MpdAnalysisManager: processing event 22100 of 22500
+MpdAnalysisManager: processing event 22200 of 22500
+MpdAnalysisManager: processing event 22300 of 22500
+MpdAnalysisManager: processing event 22400 of 22500
+Writing output to file pCentr.root
+Writing output to file taskEner.root
