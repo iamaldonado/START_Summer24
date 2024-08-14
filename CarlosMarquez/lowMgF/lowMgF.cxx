@@ -195,7 +195,7 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 // cout << "ZMC: " << ZMC << endl;    
    DZvsZReco	->	Fill(ZReco, DZ);
    DZNtracks	->	Fill(nTVert, DZ);
-   DZb	->	Fill(b, DZ);
+   DZb		->	Fill(b, DZ);
 
    TPDZvsZReco	->	Fill(ZReco, DZ);
    TPDZNtracks	->	Fill(nTVert, DZ);
@@ -237,7 +237,6 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
     int mcId = kftrack -> GetTrackID();                                                // MpdTpcKalmanTrack::GetTrackID() gives the ID of the corresponding Monte Carlo track
 //____________________________________________________________________________________________________________________________________________
     
-  // MpdTrack *track = (MpdTrack*) event.fMPDEvent->GetGlobalTracks()->UncheckedAt(i)
    MpdTrack *track  =  (MpdTrack*) mMpdGlobalTracks->UncheckedAt(i);
 	// Variables
         int Ntrack  	=  track -> GetID();
@@ -251,12 +250,10 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 
 //____________________________________________________________________________________________________________________________________________
    Int_t ID = track -> GetID(); 
-   MpdMCTrack *mctrack = (MpdMCTrack*)mMCTracks -> UncheckedAt(ID); 
-// MpdMCTrack* mctrack = (MpdMCTrack*) mMCTracks -> At(mcId);                         // Monte Carlo track is open for reading  
+   MpdMCTrack *mctrack = (MpdMCTrack*)mMCTracks -> UncheckedAt(ID); 		// Monte Carlo track is open for reading	
    
     int   pdg		= mctrack -> GetPdgCode();                               // Track PDG code
     int   prodId	= mctrack -> GetMotherId();                              // Track primacy: -1 = primary, any other = secondary
-   // int   current_particle_mc = particle_by_pdg(pdg);                                  // Particle position in the particles vector (read in the settings file)
     float rapidity_mc	= mctrack -> GetRapidity();                              // Particle rapidity (CAN BE WRONG!!!)
     float p_mc		= mctrack -> GetP();                                     // Particle full momentum
     float pt_mc		= mctrack -> GetPt();                                    // Particle transverse momentum
@@ -270,6 +267,9 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    // DCA Global
    Double_t DCAG = TMath::Sqrt( pow(DCAX,2) + pow(DCAY,2) + pow(DCAZ,2));
 
+   // Absolute PDG
+   Int_t abspdg = TMath::Abs( pdg );
+   
    // Fill Histograms
  
   	// Reco
@@ -328,49 +328,61 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 	}
         
    }
+		// Cuts
+   if(TMath::Abs(pt_reco) < 1.5) continue; 
+   if(NHits > 27) continue;
+   if(Eta > -1.5 && Eta < 1.5) continue;
+   if(DCAG > 1) continue;
+
 	// Track Efficiency
-   if(mctrack->GetMotherId()==-1) //Primarias
+   if(mctrack -> GetMotherId() ==-1 ) //Primarias
    {
-   	if(NHits > 27)
-        {
-		if(Eta > -1.5 && Eta < 1.5)
-		{
-			if(DCAG > 1)
-			{
-			if(pdg == 211)  PtRecoPionP	->	Fill(pt_reco);
-			if(pdg == 2212) PtRecoProtonP	->	Fill(pt_reco);
-			if(pdg == 321)  PtRecoKaonP	->	Fill(pt_reco);
-
-			if(pdg == 211)  PtMCPionP	->	Fill(pt_mc);
-			if(pdg == 2212) PtMCProtonP	->	Fill(pt_mc);
-			if(pdg == 321)  PtMCKaonP	->	Fill(pt_mc);
-			}
-		}
-        }
+	if(abspdg == 211)  PtRecoPionP	->	Fill(pt_reco);
+	if(abspdg == 2212) PtRecoProtonP->	Fill(pt_reco);
+	if(abspdg == 321)  PtRecoKaonP	->	Fill(pt_reco);
    }
-   if(mctrack->GetMotherId() !=-1) // Secondary Particles
+   if(mctrack -> GetMotherId() !=-1 ) // Secondary Particles
    {
-   	if(NHits > 27)
-        {
-		if(Eta > -1.5 && Eta < 1.5)
-		{
-			if(DCAG > 1)
-			{
-			if(pdg == 211)  PtRecoPionS	->	Fill(pt_reco);
-			if(pdg == 2212) PtRecoProtonS	->	Fill(pt_reco);
-			if(pdg == 321)  PtRecoKaonS	->	Fill(pt_reco);
-
-			if(pdg == 211)  PtMCPionS	->	Fill(pt_mc);
-			if(pdg == 2212)  PtMCProtonS	->	Fill(pt_mc);
-			if(pdg == 321)  PtMCKaonS	->	Fill(pt_mc);
-			}
-		}
-        }
+	if(pdg == 211)  PtRecoPionS	->	Fill(pt_reco);
+	if(pdg == 2212) PtRecoProtonS	->	Fill(pt_reco);
+	if(pdg == 321)  PtRecoKaonS	->	Fill(pt_reco);
    }
 
 
     
-  }
+  } // Close the first loop.
+  
+  Int_t nmctracks = mMCTracks->GetEntriesFast();
+
+  for (int i=0; i<nmctracks; i++){
+  auto mctrack = (MpdMCTrack*) mMCTracks->UncheckedAt(i); 
+
+    int   pdg		= mctrack -> GetPdgCode();                               // Track PDG code
+    float pt_mc		= mctrack -> GetPt();                                    // Particle transverse momentum
+    TVector3 P(mctrack->GetPx(),mctrack->GetPy(),mctrack->GetPz()); 
+    Double_t Eta=0.5*TMath::Log((P.Mag() + mctrack->GetPz())/(P.Mag() - mctrack->GetPz()+1.e-13));
+  
+     // Absolute PDG
+   Int_t abspdg = TMath::Abs( pdg );
+
+   if(TMath::Abs(pt_mc) < 1.5) continue; 
+   if(Eta > -1.5 && Eta < 1.5) continue;
+ 
+	// Track Efficiency
+   if(mctrack -> GetMotherId() ==-1 ) //Primarias
+   {
+	if(abspdg == 211)  PtMCPionP	->	Fill(pt_mc);
+	if(abspdg == 2212) PtMCProtonP	->	Fill(pt_mc);
+	if(abspdg == 321)  PtMCKaonP	->	Fill(pt_mc);
+   }
+   if(mctrack -> GetMotherId() !=-1 ) // Secondary Particles
+   {
+	if(pdg == 211)  PtMCPionS	->	Fill(pt_mc);
+	if(pdg == 2212)  PtMCProtonS	->	Fill(pt_mc);
+	if(pdg == 321)  PtMCKaonS	->	Fill(pt_mc);
+   }
+
+ } // Close the second loop.
 }
 
 /// Default destructor
