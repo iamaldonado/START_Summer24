@@ -34,12 +34,27 @@ void lowMgF::UserInit(){
 	// Primary Vertez Resolution
    DZvsZReco	  =  new TH2F("DZvsZReco", "#Delta Z vs Z_{Reco} ; Z_{Reco} ; #Delta (cm)", 500, -200, 200, 500, 0, 250);
 	fOutputList -> Add(DZvsZReco);
+   TPDZvsZReco	  =  new TProfile("TPDZvsZReco", "#Delta Z vs Z_{Reco} ; Z_{Reco} ; #Delta (cm)", 500, -200, 200, 0, 250);
+	fOutputList -> Add(TPDZvsZReco);
 
-   DZNtracks	  =  new TH2F("DZNtracks", "#Delta Z vs NTracks ; NTracks; #Detla Z (cm)", 500, 0, 500, 500,0,250);
+
+   DZNtracks	  =  new TH2F("DZNtracks", "#Delta Z vs NTracks ; NTracks; #Delta Z (cm)", 500, 0, 500, 500,0,250);
 	fOutputList -> Add(DZNtracks);
+   TPDZNtracks	  =  new TProfile("TPDZNtracks", "#Delta Z vs NTracks ; NTracks; #Detla Z (cm)", 500, 0, 500, 0, 250);
+	fOutputList -> Add(TPDZNtracks);
 
-   DZb		  =  new TH2F("DZb", "#Delta Z vs b; b ; #Detla Z (cm)", 100, 0, 16, 100, 0, 250);
+
+   DZb		  =  new TH2F("DZb", "#Delta Z vs b; b ; #Delta Z (cm)", 100, 0, 16, 100, 0, 250);
 	fOutputList -> Add(DZb);
+   TPDZb		  =  new TProfile("TPDZb", "#Delta Z vs b; b ; #Detla Z (cm)", 100, 0, 16, 0, 250);
+	fOutputList -> Add(TPDZb);
+
+
+   TPDZNtracksW	=  new TProfile2D("TPDZNtracksW", "#Delta p_{t};#eta; #Detla p_{t} (Gev/c)", 100, -4, 4, 100,0,5,0,4);
+	fOutputList -> Add(TPDZNtracksW);
+   TPDZbW	=  new TProfile2D("TPDZbW", "#Delta p_{t};#eta; Z", 100, -4, 4, 100,0,5,0,4);
+	fOutputList -> Add(TPDZbW);
+
 
 	// Monte Carlo
    PtMCvsEta	=  new TH2F("PtMCvsEta", "p_{t}^{mc} vs #eta ; #eta ; p_{t}^{mc} (GeV/c)", 500, -3, 3, 500, 0, 4);
@@ -73,48 +88,77 @@ void lowMgF::UserInit(){
 
 	// With Cuts in NHits
 		// Parameters
-   PtNHitsC	=  new TProfile("DptvsNHitsC", " #Delta p_{T} vs NHits ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
+   PtNHitsC	=  new TProfile("DptvsNHitsC", " #Delta p_{T} vs NHits with cut NHits > 27 ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
 	fOutputList -> Add(PtNHitsC);
 
-   PtEtaC	=  new TProfile("DptvsEtaC", " #Delta p_{T} vs #eta ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
+   PtEtaC	=  new TProfile("DptvsEtaC", " #Delta p_{T} vs #eta with cut NHits > 27 ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
 	fOutputList -> Add(PtEtaC);
 
 	// With Cuts in Eta
 		// Parameters
-   PtNHitsCE	=  new TProfile("DptvsNHitsCE", " #Delta p_{T} vs NHits wiht cut in #eta ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
+   PtNHitsCE	=  new TProfile("DptvsNHitsCE", " #Delta p_{T} vs NHits wiht cut in #eta (-1.5, 1.5) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
 	fOutputList -> Add(PtNHitsCE);
 
-   PtEtaCE	=  new TProfile("DptvsEtaCE", " #Delta p_{T} vs #eta with cut in #eta ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
+   PtEtaCE	=  new TProfile("DptvsEtaCE", " #Delta p_{T} vs #eta with cut #eta (-1.5, 1.5) ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
 	fOutputList -> Add(PtEtaCE);
 
 		// DCA GLobal
-   PtDCAGlobalC	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal ; DCAGlobal ; #Delta p_{T}", 150,0,5,0,15);
+   PtDCAGlobalC	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 	fOutputList -> Add(PtDCAGlobalC);
 
-   PtDCAGlobalPC=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary ; DCAGlobal ; #Delta p_{T}", 150,0,5,0,15);
+   PtDCAGlobalPC=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 	fOutputList -> Add(PtDCAGlobalPC);
 
-   PtDCAGlobalSC=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary; DCAGlobal ; #Delta p_{T}", 150,0,5,0,15);
+   PtDCAGlobalSC=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 	fOutputList -> Add(PtDCAGlobalSC);
 
 	// Resolution with cut in Number of Hits
-   PtEtaDPtC	=  new TProfile2D("PtEtaDPtC","#Delta p_{T} with cut NHits > 27 ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+   PtEtaDPtC	=  new TProfile2D("PtEtaDPtC","#Delta p_{T} with cut NHits > 16 ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
 	fOutputList -> Add(PtEtaDPtC);
 	
  	// Resolution with cut in Eta
-   PtEtaDPtCE	=  new TProfile2D("PtEtaDPtCE","#Delta p_{T} with cut #eta (-1.5,1.5) ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+   PtEtaDPtCE	=  new TProfile2D("PtEtaDPtCE","#Delta p_{T} with cut #eta (-1,1) ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
 	fOutputList -> Add(PtEtaDPtCE);
 	
 
 	// DCA Global
-   DCAGC = new TH1F("DCAGlobalC","DCA Global wiht cut; DCA Global; Entries", 200, 0, 40);
+   DCAGC = new TH1F("DCAGlobalC","DCA Global wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);
 	fOutputList -> Add(DCAGC);
 
-   DCAGPC = new TH1F("DCAGlobalPC","DCA Global Primary wiht cut; DCA Global; Entries", 200, 0, 40);
+   DCAGPC = new TH1F("DCAGlobalPC","DCA Global Primary wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);
 	fOutputList -> Add(DCAGPC);
 
-   DCAGSC = new TH1F("DCAGlobalSC","DCA Global Secondary wiht cut; DCA Global; Entries", 200, 0, 40);
+   DCAGSC = new TH1F("DCAGlobalSC","DCA Global Secondary wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);
 	fOutputList -> Add(DCAGSC);
+
+	// Track Efficiency
+   PtRecoPionP	= new TH1F("PtRecoPionP"," p_{T}^{RECO} #pi Primary ", 200, 0, 5);
+	fOutputList -> Add(PtRecoPionP);
+   PtRecoPionS	= new TH1F("PtRecoPionS"," p_{T}^{RECO} #pi Secondary ", 200, 0, 5);
+	fOutputList -> Add(PtRecoPionS);
+   PtMCPionP	= new TH1F("PtMCPionP"," p_{T}^{MC} #pi Primary ", 200, 0, 5);
+	fOutputList -> Add(PtMCPionP);
+   PtMCPionS	= new TH1F("PtMCPionS"," p_{T}^{MC} #pi Secundary ", 200, 0, 5);
+	fOutputList -> Add(PtMCPionS);
+   
+   PtRecoProtonP= new TH1F("PtRecoProtonP"," p_{T}^{RECO} p Primary ", 200, 0, 5);
+	fOutputList -> Add(PtRecoProtonP);
+   PtRecoProtonS= new TH1F("PtRecoProtonS"," p_{T}^{RECO} p Secondary ", 200, 0, 5);
+	fOutputList -> Add(PtRecoProtonS);
+   PtMCProtonP  = new TH1F("PtMCProtonP"," p_{T}^{MC} p Primary ", 200, 0, 5);
+	fOutputList -> Add(PtMCProtonP);
+   PtMCProtonS  = new TH1F("PtMCProtonS"," p_{T}^{MC} p Secundary", 200, 0, 5);
+	fOutputList -> Add(PtMCProtonS);
+
+   PtRecoKaonP	= new TH1F("PtRecoKaonP"," p_{T}^{RECO} #kappa Primary ", 200, 0, 5);
+	fOutputList -> Add(PtRecoKaonP);
+   PtRecoKaonS	= new TH1F("PtRecoKaonS"," p_{T}^{RECO} #kappa Secondary ", 200, 0, 5);
+	fOutputList -> Add(PtRecoKaonS);
+   PtMCKaonP	= new TH1F("PtMCKaonP"," p_{T}^{MC} #kappa Primary ", 200, 0, 5);
+	fOutputList -> Add(PtMCKaonP);
+   PtMCKaonS	= new TH1F("PtMCKaonS"," p_{T}^{MC} #kappa Secundary ", 200, 0, 5);
+	fOutputList -> Add(PtMCKaonS);
+
 
 }
 
@@ -141,7 +185,7 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    Double_t ZMC = mMCEventHeader-> GetZ();
    Double_t b = mMCEventHeader -> GetB();
 
-   Double_t DZ	= TMath::Abs( ZReco - ZMC ) / ( ZMC );
+   Double_t DZ	= TMath::Abs(( ZReco - ZMC ) / ( ZMC ));
 
    TVector3 Prim_Vtx(vtx->GetX(),vtx->GetY(),vtx->GetZ()); 
  
@@ -153,6 +197,12 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    DZNtracks	->	Fill(nTVert, DZ);
    DZb	->	Fill(b, DZ);
 
+   TPDZvsZReco	->	Fill(ZReco, DZ);
+   TPDZNtracks	->	Fill(nTVert, DZ);
+   TPDZb	->	Fill(b, DZ);
+
+   TPDZNtracksW ->	Fill(ZReco, nTVert, DZ);
+   TPDZbW	->	Fill(ZReco, b,DZ);
 
 //   if(TMath::Abs(posVtxZ) > 4) continue;
 //-----------------------------------------------
@@ -204,13 +254,14 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    MpdMCTrack *mctrack = (MpdMCTrack*)mMCTracks -> UncheckedAt(ID); 
 // MpdMCTrack* mctrack = (MpdMCTrack*) mMCTracks -> At(mcId);                         // Monte Carlo track is open for reading  
    
-    int   pdg                 = mctrack -> GetPdgCode();                               // Track PDG code
-    int   prodId              = mctrack -> GetMotherId();                              // Track primacy: -1 = primary, any other = secondary
+    int   pdg		= mctrack -> GetPdgCode();                               // Track PDG code
+    int   prodId	= mctrack -> GetMotherId();                              // Track primacy: -1 = primary, any other = secondary
    // int   current_particle_mc = particle_by_pdg(pdg);                                  // Particle position in the particles vector (read in the settings file)
-    float rapidity_mc         = mctrack -> GetRapidity();                              // Particle rapidity (CAN BE WRONG!!!)
-    float p_mc                = mctrack -> GetP();                                     // Particle full momentum
-    float pt_mc               = mctrack -> GetPt();                                    // Particle transverse momentum
-    float pz_mc               = mctrack -> GetPz();                                    // Particle momentum z-component
+    float rapidity_mc	= mctrack -> GetRapidity();                              // Particle rapidity (CAN BE WRONG!!!)
+    float p_mc		= mctrack -> GetP();                                     // Particle full momentum
+    float pt_mc		= mctrack -> GetPt();                                    // Particle transverse momentum
+    float pz_mc		= mctrack -> GetPz();                                    // Particle momentum z-component
+
 //_____________________________________________________________________________________________________________________________________________
 
    // Delta Pt
@@ -277,6 +328,46 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 	}
         
    }
+	// Track Efficiency
+   if(mctrack->GetMotherId()==-1) //Primarias
+   {
+   	if(NHits > 27)
+        {
+		if(Eta > -1.5 && Eta < 1.5)
+		{
+			if(DCAG > 1)
+			{
+			if(pdg == 211)  PtRecoPionP	->	Fill(pt_reco);
+			if(pdg == 2212) PtRecoProtonP	->	Fill(pt_reco);
+			if(pdg == 321)  PtRecoKaonP	->	Fill(pt_reco);
+
+			if(pdg == 211)  PtMCPionP	->	Fill(pt_mc);
+			if(pdg == 2212) PtMCProtonP	->	Fill(pt_mc);
+			if(pdg == 321)  PtMCKaonP	->	Fill(pt_mc);
+			}
+		}
+        }
+   }
+   if(mctrack->GetMotherId() !=-1) // Secondary Particles
+   {
+   	if(NHits > 27)
+        {
+		if(Eta > -1.5 && Eta < 1.5)
+		{
+			if(DCAG > 1)
+			{
+			if(pdg == 211)  PtRecoPionS	->	Fill(pt_reco);
+			if(pdg == 2212) PtRecoProtonS	->	Fill(pt_reco);
+			if(pdg == 321)  PtRecoKaonS	->	Fill(pt_reco);
+
+			if(pdg == 211)  PtMCPionS	->	Fill(pt_mc);
+			if(pdg == 2212)  PtMCProtonS	->	Fill(pt_mc);
+			if(pdg == 321)  PtMCKaonS	->	Fill(pt_mc);
+			}
+		}
+        }
+   }
+
 
     
   }
