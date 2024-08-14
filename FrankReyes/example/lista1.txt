@@ -1,1 +1,0 @@
-/scratch1/franreyes/dev/mpdroot-v24.06.24/macros/common/mpddst.root
