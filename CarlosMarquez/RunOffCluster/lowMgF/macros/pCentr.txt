@@ -1,0 +1,6 @@
+#-------Parameters used for analysis------
+mProdGenerator Req28-UrQMD  # Production-Generator
+
+mInFileConvert nTr_Centr_Req28-UrQMD.root  # input file with track-to-centrality converter 
+
+mInFileTrEff TrackRecEff.root
