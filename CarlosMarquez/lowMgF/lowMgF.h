@@ -116,10 +116,19 @@ public:
    TH2F *PtRECOvsEta;
    TH1F *VertexPosition;
 
-	// DCA Resolution
+	// Vtx Resolution
+   // TH2F
    TH2F *DZvsZReco;
    TH2F *DZNtracks;
    TH2F *DZb;
+
+   // TProfile
+   TProfile *TPDZvsZReco;
+   TProfile *TPDZNtracks;
+   TProfile *TPDZb;
+
+   TProfile2D *TPDZNtracksW;
+   TProfile2D *TPDZbW;
 
 	// without Cuts
    TProfile *PtNHits;		// Number of Hits
@@ -153,6 +162,23 @@ public:
    TH1F *DCAGPC; 		// DCA Global Primary
    TH1F *DCAGSC; 		// DCA Global Secondary
    TH1F *DCAGC;			// DCA Global
+
+	// Track Efficiency
+   TH1F *PtRecoPionP;
+   TH1F *PtRecoPionS;
+   TH1F *PtMCPionP;
+   TH1F *PtMCPionS;
+
+   TH1F *PtRecoProtonP;
+   TH1F *PtRecoProtonS;
+   TH1F *PtMCProtonP;
+   TH1F *PtMCProtonS;
+
+   TH1F *PtRecoKaonP;
+   TH1F *PtRecoKaonS;
+   TH1F *PtMCKaonP;
+   TH1F *PtMCKaonS;
+
 
  // int   particle_by_pdg(const int value);
   void  read_settings_json(const char* fname);
