@@ -31,6 +31,7 @@ class Fixed_Analysis: public MpdAnalysisTask {
     void init_Profile2D();
     void init_Hist1D();
     void init_Hist2D();
+    void init_HistPart();
     void UserInit();
     void ProcessEvent(MpdAnalysisEvent &event);
     void Finish();
@@ -121,6 +122,20 @@ class Fixed_Analysis: public MpdAnalysisTask {
                                         };
 
     TH1F *HistPST1[3][NumHistPST1];
+
+  //MC Reco and Pri, Sec Particles, Kaons, Protons, Pions
+  const static int NumHistMCPSKpPi1 = 1;
+  char HistMCPSKpPi1_titles[NumHistMCPSKpPi1][300]={"pT"                                             
+                                          };
+
+  axis1D HistMCPSKpPi1_axis[NumHistMCPSKpPi1] = {{"pT (Gev/c)"}
+                                      };
+  interval1D HistMCPSKpPi1_inter[NumHistMCPSKpPi1] = {{0,5}
+                                            };
+
+  bin1D HistMCPSKpPi1_bins[NumHistMCPSKpPi1] = {{200}
+                                      };
+  TH1F *HistMCPSKpPi1[2][2][4][NumHistMCPSKpPi1];
 
   //It creates a TProfile for Primary , Secondary or All particles
       
@@ -223,6 +238,10 @@ class Fixed_Analysis: public MpdAnalysisTask {
     TH1F *MC_pT = nullptr;
     TH1F *Reco_pT = nullptr;
     TH1F *hRefMult = nullptr;
+    TH1F *HisMCPT = nullptr;
+    TH1F *HisRecoPT = nullptr;
+    TH1F *Hist_Eff_zVertex = nullptr;
+
 
     TH2F *hBvsRefMult = nullptr;
     TH2F *Hist_MC_NTrack_ZVertex = nullptr;
@@ -234,12 +253,22 @@ class Fixed_Analysis: public MpdAnalysisTask {
     TH2F *Hist_Diff_ZVertex_b = nullptr;
     TH2F *Hist_Diff_ZVertex_NTracks = nullptr;
     TH2F *ZVertex_NTracksMC = nullptr;
+    TH2F *pT_DiffpT_Reco = nullptr;
+    TH2F *ZVertex_Eta_R_cuts = nullptr;
+    TH2F *pT_DiffpT_Reco_cuts = nullptr;
+    
+    TH2F *ZVertex_Eta_R = nullptr;
+    TH2F *ZVertex_Eta_MC = nullptr;
+    TH2F *DZVertex_zVertex = nullptr;
 
     TProfile *Profile_Diff_Vertex_b = nullptr;
     TProfile *Profile_Diff_Vertex_NTracks = nullptr;
 
     TProfile2D *Prof_2D_eta_pt_DPT_Reco = nullptr;
     TProfile2D *Prof_2D_eta_pt_DPT_MC = nullptr;
+
+    TProfile2D *Prof_2D_Ntracks_zVertex = nullptr;
+    TProfile2D *Prof_2D_Ntracks_zVertex_cuts = nullptr;
 
 
     //  Branches

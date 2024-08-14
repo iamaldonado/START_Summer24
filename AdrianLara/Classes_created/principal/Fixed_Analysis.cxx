@@ -7,11 +7,68 @@ Fixed_Analysis::Fixed_Analysis(const char *name, const char *outputName) : MpdAn
    fOutputList = nullptr;
 }
 //_____________________________________________________________________________________
+void Fixed_Analysis::init_HistPart(){
+
+  char name1[20];
+  char name2[20];
+  char name3[20];
+  char hist_name[300];
+  char title_name[500];
+
+  for(Int_t i = 0 ; i < 2 ; i++)
+  {
+    sprintf(name1,"");
+    Int_t u = (i%2 == 0) ? sprintf(name1,"MC_") : sprintf(name1, "Reco_");
+    for (Int_t j = 0; j < 2; j++)
+    {
+      sprintf(name2,"");
+      Int_t y = (j%2 == 0) ? sprintf(name2,"Primary_") : sprintf(name2,"Secondary_");
+      for (Int_t l = 0; l < 4; l++)
+      {
+        sprintf(name3,"");
+        switch (l)
+        {
+          case 0:
+            sprintf(name3,"Kaons_");
+            break;
+          case 1:
+            sprintf(name3,"Protons_");
+            break;
+          case 2:
+            sprintf(name3,"Pions_");
+            break;
+          case 3:
+            sprintf(name3,"All_");
+            break;
+          default:
+            sprintf(name3,"Error");
+        }
+        for (Int_t k = 0; k < NumHistMCPSKpPi1; k++)
+        {
+          sprintf(hist_name,"");
+          sprintf(title_name,"");
+
+          strcat(hist_name,name1);
+          strcat(hist_name,name2);
+          strcat(hist_name,name3);
+
+          strcat(hist_name,HistMCPSKpPi1_titles[k]);
+          strcat(title_name,hist_name);
+          strcat(title_name,";");
+          strcat(title_name,HistMCPSKpPi1_axis[k].X);
+          HistMCPSKpPi1[i][j][l][k] = new TH1F(hist_name , title_name , HistMCPSKpPi1_bins[k].X , HistMCPSKpPi1_inter[k].Xlow , HistMCPSKpPi1_inter[k].Xup );
+          fOutputList->Add(HistMCPSKpPi1[i][j][l][k]);   
+        }
+      } 
+    } 
+  }
+  return;
+}
 
 void Fixed_Analysis::init_Hist1D(){
 
   char name1[15];
-
+  char name2[15];
   char hist_name[300];
   char title_name[500];
 
@@ -32,6 +89,7 @@ void Fixed_Analysis::init_Hist1D(){
       default:
         sprintf(name1,"");
     }
+    
     for (Int_t k = 0; k < NumHistPST1; k++)
     {
       sprintf(hist_name,"");
@@ -151,23 +209,22 @@ void Fixed_Analysis::init_Profile2D(){
         sprintf(name2,"");
     }
     for (Int_t k = 0; k < NumProf3; k++)
-      {
-        sprintf(hist_name,"");
-        sprintf(title_name,"");     
+    {
+      sprintf(hist_name,"");
+      sprintf(title_name,"");     
 
-        strcat(hist_name,name2);
-        strcat(hist_name,Prof3D_titles[k]);
-        strcat(title_name,hist_name);
-        strcat(title_name,";");
-        strcat(title_name,Prof3D_axis[k].X);
-        strcat(title_name,";");
-        strcat(title_name,Prof3D_axis[k].Y);
-        strcat(title_name,";");
-        strcat(title_name,Prof3D_axis[k].Z);
-        // cout << title_name << endl;
-        Prof3D[i][k] = new TProfile2D(hist_name , title_name , Prof3D_bins[k].X , Prof3D_inter[k].Xlow , Prof3D_inter[k].Xup , Prof3D_bins[k].Y , Prof3D_inter[k].Ylow , Prof3D_inter[k].Yup, Prof3D_inter[k].Zlow , Prof3D_inter[k].Zup );
-        fOutputList->Add(Prof3D[i][k]);
-      }
+      strcat(hist_name,name2);
+      strcat(hist_name,Prof3D_titles[k]);
+      strcat(title_name,hist_name);
+      strcat(title_name,";");
+      strcat(title_name,Prof3D_axis[k].X);
+      strcat(title_name,";");
+      strcat(title_name,Prof3D_axis[k].Y);
+      strcat(title_name,";");
+      strcat(title_name,Prof3D_axis[k].Z);
+      Prof3D[i][k] = new TProfile2D(hist_name , title_name , Prof3D_bins[k].X , Prof3D_inter[k].Xlow , Prof3D_inter[k].Xup , Prof3D_bins[k].Y , Prof3D_inter[k].Ylow , Prof3D_inter[k].Yup, Prof3D_inter[k].Zlow , Prof3D_inter[k].Zup );
+      fOutputList->Add(Prof3D[i][k]);
+    }
   }
   return;
 }
@@ -220,8 +277,8 @@ void Fixed_Analysis::UserInit()
   Hist_b_Multiplicity_R = new TH2F("b_hMultiplicity_Reco", "Reco hMultiplicity vs Impact Parameter;hMultiplicity ; b (fm)",1000,0,1000,100,0,16);
   fOutputList->Add(Hist_b_Multiplicity_R);
 
-  Hist_Diff_ZVertex_b = new TH2F("b_DiffVertex", "#Delta z-Vertex vs Impact Parameter;#Delta z-Vertex (cm) ; b (fm)",500,-200,200,100,0,16);
-  Hist_Diff_ZVertex_NTracks = new TH2F("Diff_Vertex_num_tracks", " #Delta z-Vertex vs NTracks;#Delta z-Vertex; NTraks",100,-10,10,500,0,300);
+  Hist_Diff_ZVertex_b = new TH2F("b_DiffVertex", "#Delta z-Vertex vs Impact Parameter;#Delta z-Vertex (cm) ; b (fm)",200,-1,5,200,0,16);
+  Hist_Diff_ZVertex_NTracks = new TH2F("Diff_Vertex_num_tracks", " #Delta z-Vertex vs NTracks;#Delta z-Vertex; NTraks",100,-1,5,500,0,300);
 
   fOutputList->Add(Hist_Diff_ZVertex_b);
   fOutputList->Add(Hist_Diff_ZVertex_NTracks);
@@ -246,6 +303,40 @@ void Fixed_Analysis::UserInit()
   fOutputList->Add(MC_pT);
   fOutputList->Add(Reco_pT);
 
+  
+  pT_DiffpT_Reco = new TH2F("pT_DiffpT_Reco", " pTvs #Delta p_{T}; pT; #Delta p_{T}",300,0,3,300,0,4);
+  fOutputList->Add(pT_DiffpT_Reco);
+
+  ZVertex_Eta_R_cuts = new TH2F("z-Vertex_Eta_Reco_cuts", " z-Vertex vs #eta cuts; z-Vertex; #eta",200,-200,200,200,-4,4);
+  pT_DiffpT_Reco_cuts = new TH2F("pT_DiffpT_Reco_cuts", " pTvs #Delta p_{T} cuts; pT; #Delta p_{T}",300,0,3,300,0,4);
+  fOutputList->Add(ZVertex_Eta_R_cuts);
+  fOutputList->Add(pT_DiffpT_Reco_cuts);
+
+  const Int_t NBins = 20;
+  Double_t egdes[NBins + 1 ] = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.0,2.3,2.5 };
+  HisRecoPT = new TH1F("PT_MC","MC p_T; p_T (Gev/c); Entries",NBins,egdes);
+  HisMCPT = new TH1F("PT_Reco","Reco p_T; p_T (Gev/c); Entries",NBins,egdes);
+  fOutputList->Add(HisRecoPT);
+  fOutputList->Add(HisMCPT);
+
+  Prof_2D_Ntracks_zVertex = new TProfile2D("NTracks_zVertex", "zVertex vs NTracks (#Delta z) ; z-Vertex (cm) ; NTracks ; #Delta z",100,-200,200,200,0,200,-4,4);
+  fOutputList->Add(Prof_2D_Ntracks_zVertex);
+  Prof_2D_Ntracks_zVertex_cuts = new TProfile2D("NTracks_zVertex_cuts", "zVertex vs NTracks (#Delta z) ; z-Vertex (cm) ; NTracks ; #Delta z",100,-200,200,200,0,200,-4,4);
+  fOutputList->Add(Prof_2D_Ntracks_zVertex_cuts);
+
+  Hist_Eff_zVertex = new TH1F("Eff_zVertex","Eff_zVertex; #frac{ZReco}{ZMC}; Entries",100,-4,4);
+  fOutputList->Add(Hist_Eff_zVertex);
+
+  ZVertex_Eta_R = new TH2F("z-Vertex_Eta_Reco", " z-Vertex vs #eta Reco; z-Vertex; #eta",200,-200,200,200,-4,4);
+  ZVertex_Eta_MC = new TH2F("z-Vertex_Eta_MC", " z-Vertex vs #eta MC; z-Vertex; #eta",200,-200,200,200,-4,4);
+  
+  fOutputList->Add(ZVertex_Eta_R);
+  fOutputList->Add(ZVertex_Eta_MC);
+
+  init_HistPart();
+
+  DZVertex_zVertex = new TH2F("DzVertex_zVertex", " z-Vertex vs #Delta z-Vertex ;#Delta z-Vertex; z-Vertex",500,-200,200,200,0,4);
+  fOutputList->Add(DZVertex_zVertex);
 }
 //____________________________________________________________________________________
 void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
@@ -287,10 +378,16 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
   Impactb = fMCEventHeader->GetB();
 
 
+
   Double_t ZMC = fMCEventHeader->GetZ();
   Double_t ZReco = Vertex->GetZ();
-  Double_t DzVertex = TMath::Abs((ZReco - ZMC)/ZMC);
-
+  Double_t DzVertex = -100;
+  Double_t Eff_zVertex = -100;
+  DzVertex = TMath::Abs((ZReco - ZMC)/ZMC);
+  Eff_zVertex = TMath::Abs(ZReco/ZMC);
+  Hist_Eff_zVertex->Fill(Eff_zVertex);
+  
+  DZVertex_zVertex->Fill(ZReco,DzVertex);
   
   Int_t CounterMC = 0;
 
@@ -313,8 +410,11 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
 
     if (abspdgcode == 321 || abspdgcode == 2212 || abspdgcode == 211 || abspdgcode == 11)// kaons, protons, pions, electrons
     {
-      if(pTMC <= 2.5 && MCTrack->GetMotherId() == -1 && Impactb < 13 && Eta > -1 && Eta < 2){//Matching cuts of RecoTracks
+      if(pTMC <= 2.5 && MCTrack->GetMotherId() == -1 && Impactb < 13 && Eta > -1 && Eta < 2)
+      {//Matching cuts of RecoTracks
         MC_pT->Fill(pTMC);
+        HisMCPT->Fill(pTMC);
+        ZVertex_Eta_MC->Fill(ZReco,Eta);
       }
     }
 
@@ -327,6 +427,7 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
   Hist_Diff_ZVertex_b->Fill(DzVertex,Impactb);
   Hist_Diff_ZVertex_NTracks->Fill(DzVertex,NumTracksVertex);
   ZVertex_NTracksMC->Fill(DzVertex,CounterMC);
+  Prof_2D_Ntracks_zVertex->Fill(ZReco,NumTracksVertex,DzVertex);
 
   if(CounterMC > 308){//Cut on number of particles > Xe(124) + W(184). Only particles with more than the initial ones
 
@@ -348,6 +449,7 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
       Hist_Multipl_MC->Fill(CounterMC);
       Hist_Multipl_R->Fill(NumTracksReco);
       Hist_b_Multiplicity_R->Fill(NumTracksReco,Impactb);
+
 
       //Reconstructed Loop
       Int_t Multiplicity = 0;
@@ -372,6 +474,7 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
         Double_t DCAZ;
         Double_t DCA;
         Double_t NumHits;
+        
 
         Pt_MC = MCTrack->GetPt();
         P_MC = MCTrack->GetP();
@@ -384,6 +487,7 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
 
         Eta_Reco = RecoTrack->GetEta();
         Eta_MC = 0.5*TMath::Log((P_MC + Pz_MC)/(P_MC - Pz_MC + 1e-16));// 1e-16 to avoid zero
+
 
 
         DCAX = RecoTrack->GetDCAX();
@@ -400,7 +504,25 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
         Prof_2D_eta_pt_DPT_Reco->Fill(Eta_Reco,Pt_Reco,Diff_Pt);
 
         //Primary p = 0 ; Secondary p = 1 
-        Int_t p = (MCTrack->GetMotherId() == -1) ? 0 : 1; 
+        Int_t p = (MCTrack->GetMotherId() == -1) ? 0 : 1;
+
+        //Kaons, Protons, Pions
+        Int_t pgdcode = MCTrack->GetPdgCode();
+        Int_t l = 3;
+
+        switch (pgdcode)
+        {
+          case 321://Kaons
+            l = 0;
+            break;
+          case 2212://Protons
+            l = 1;
+            break;
+          case 211://Pions
+            l = 2;
+            break;    
+        }
+         
 
         for (Int_t k = 0; k < 2; k++)//MC k = 0 ; Reco k = 1 
         {
@@ -422,6 +544,7 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
         //Fill NHits vs D pT
         Prof1[p][2]->Fill(NumHits,Diff_Pt);
         Prof1[2][2]->Fill(NumHits,Diff_Pt);
+        pT_DiffpT_Reco->Fill(Pt_Reco,Diff_Pt);
 
         if (ZReco > -100 && ZReco < -70)//Cut on Primary Vertex
         {
@@ -487,12 +610,24 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
         }
         
 
-        if (Impactb < 13 && Eta_Reco > -1 && Eta_Reco < 2 && DCA <= 2 && NumHits >= 20 ){ //Impact Parameter Cut
+        if (Impactb < 13 && Eta_Reco > -1 && Eta_Reco < 2 && DCA <= 2 && NumHits >= 20 )
+        { //Impact Parameter Cut
           Prof3D[p][3]->Fill(Eta_Reco,Pt_Reco,Diff_Pt);
           Prof3D[2][3]->Fill(Eta_Reco,Pt_Reco,Diff_Pt);
           Multiplicity++;
+
+          HistMCPSKpPi1[0][p][l][0]->Fill(Pt_MC);
+          HistMCPSKpPi1[1][p][l][0]->Fill(Pt_Reco);
+          HistMCPSKpPi1[0][p][3][0]->Fill(Pt_MC);
+          HistMCPSKpPi1[1][p][3][0]->Fill(Pt_Reco);
+
+          Prof_2D_Ntracks_zVertex_cuts->Fill(ZReco,NumTracksVertex,DzVertex);
+          ZVertex_Eta_R->Fill(ZReco,Eta_Reco);
+          pT_DiffpT_Reco_cuts->Fill(Pt_Reco,Diff_Pt);
+          
           if (Pt_Reco <= 2.5)
           {
+            HisRecoPT->Fill(Pt_Reco);
             Reco_pT->Fill(Pt_Reco);
           }
         }
@@ -502,7 +637,6 @@ void Fixed_Analysis::ProcessEvent(MpdAnalysisEvent &event)
       hBvsRefMult->Fill(Multiplicity,Impactb);
     }
   }
-
 }
 //___________________________________________________________________________________
 void Fixed_Analysis::Finish()
