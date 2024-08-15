@@ -1,8 +1,5 @@
 # Running in the Offline Cluster
 
-## Content
-
-*[Introduction](*Introduction)
 
 ## Introduction
 When we have too much information that we want to analyze, a good solution is to divide our data into different files and run them simultaneously, and finally we gather all the output files. To do this we will have to consider several aspects in order to run our analysis train.
