@@ -158,7 +158,7 @@ public:
    TProfile2D *PtEtaDPtCE; 	// Resolution
 
 
-	// DCA Global
+	// DCA Global with cuts in Number of Hits
    TH1F *DCAGPC; 		// DCA Global Primary
    TH1F *DCAGSC; 		// DCA Global Secondary
    TH1F *DCAGC;			// DCA Global
@@ -179,6 +179,10 @@ public:
    TH1F *PtMCKaonP;
    TH1F *PtMCKaonS;
 
+   TProfile *DPtPtReco;
+
+	// Multiplicity
+   TProfile *VtxMult;
 
  // int   particle_by_pdg(const int value);
   void  read_settings_json(const char* fname);
