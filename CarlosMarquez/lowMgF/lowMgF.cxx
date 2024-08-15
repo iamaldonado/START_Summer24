@@ -159,7 +159,12 @@ void lowMgF::UserInit(){
    PtMCKaonS	= new TH1F("PtMCKaonS"," p_{T}^{MC} #kappa Secundary ", 200, 0, 5);
 	fOutputList -> Add(PtMCKaonS);
 
+   DPtPtReco	=  new TProfile("DPtPtReco", " #Delta p_{T} ; Z_{Reco} (cm) ; #Delta z = |#frac{p_{T}^{reco} - p_{T}^{MC}}{p_{T}^{MC}}|  ", 150,0,5,0,15);
+	fOutputList -> Add(DPtPtReco);
 
+	// Multiplicity
+   VtxMult	=  new TProfile("VtxMult", " Vertex Resolution vs Track Multiplicity ; Track Multiplicity ; #Delta z = |#frac{z_{reco} - z_{MC}}{z_{MC}}|  ", 150,0,800,0,15);
+	fOutputList -> Add(VtxMult);
 }
 
 void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
@@ -184,6 +189,7 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    Int_t nTVert = vtx->GetNTracks();
    Double_t ZMC = mMCEventHeader-> GetZ();
    Double_t b = mMCEventHeader -> GetB();
+   Double_t absZ= TMath::Abs( ZReco );
 
    Double_t DZ	= TMath::Abs(( ZReco - ZMC ) / ( ZMC ));
 
@@ -204,7 +210,12 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    TPDZNtracksW ->	Fill(ZReco, nTVert, DZ);
    TPDZbW	->	Fill(ZReco, b,DZ);
 
-//   if(TMath::Abs(posVtxZ) > 4) continue;
+//   if(TMath::Abs(ZReco) > -50 && TMath::Abs(ZReco < 50)) continue;
+
+	// Multiplicity
+   Int_t refMult;
+
+   refMult = 0; 
 //-----------------------------------------------
 
   int ntrmc = mMCTracks -> GetEntries();
@@ -261,6 +272,8 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 
 //_____________________________________________________________________________________________________________________________________________
 
+ 	//Multiplicity
+   refMult++;
    // Delta Pt
    Double_t DPt	= TMath::Abs( pt_reco - pt_mc ) / ( pt_mc );
 
@@ -271,7 +284,6 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    Int_t abspdg = TMath::Abs( pdg );
    
    // Fill Histograms
- 
   	// Reco
    PtRECOvsEta	->	Fill(Eta, pt_reco);
 
@@ -329,10 +341,12 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
         
    }
 		// Cuts
-   if(TMath::Abs(pt_reco) < 1.5) continue; 
+  // if(TMath::Abs(pt_reco) < 1.5) continue; 
    if(NHits > 27) continue;
    if(Eta > -1.5 && Eta < 1.5) continue;
    if(DCAG > 1) continue;
+
+   DPtPtReco	->	Fill(pt_reco,DPt);
 
 	// Track Efficiency
    if(mctrack -> GetMotherId() ==-1 ) //Primarias
@@ -351,7 +365,10 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 
     
   } // Close the first loop.
-  
+ 	// Multiplicity
+  VtxMult -> Fill(refMult,DZ);
+ 
+ 
   Int_t nmctracks = mMCTracks->GetEntriesFast();
 
   for (int i=0; i<nmctracks; i++){
@@ -365,7 +382,7 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
      // Absolute PDG
    Int_t abspdg = TMath::Abs( pdg );
 
-   if(TMath::Abs(pt_mc) < 1.5) continue; 
+  // if(TMath::Abs(pt_mc) < 1.5) continue; 
    if(Eta > -1.5 && Eta < 1.5) continue;
  
 	// Track Efficiency
@@ -529,7 +546,3 @@ void lowMgF::read_settings_json(const char* fname){
     s__p_List.push_back(p);
   }
 } // lowMgF::read_settings_json()
-
-
-
-
