@@ -28,7 +28,7 @@ split -l Number_of_lines -d name_of_our_list.txt
 The file is split into short files based on the number of lines which we want using `-l` option as shown. Also, we can change the split files suffix to numeric by using the `-d` option.
 
 ## Our file
-The file that we will run in the offline cluster, is "RunAnalyses. `C`, which is the following. This macro will help us run our analytic train.
+The file that we will run in the offline cluster, is `RunAnalyses.C`, which is the following. This macro will help us run our analytic train.
 
 The important part that we must remember is the list of which information will be taken. For in the code that is presented is "ListTEST.txt". However, that list only contains 500 events, which were taken to test everything was working well. 
 
@@ -36,6 +36,14 @@ The next section shows how you can change that part for the lists we create.
 * [RunAnalyses.C](RunAnalyses.C)
 
 ### Code to generated many jobs
+This file is the important part so that too much information can be run. hen I will explain it part by part, for the moment is the following and the correct order to be able to run it without any problem.
+
+* [manyjobs.sh](manyjobs.sh)
+
+Once this file is done, We run it using the following command.
+```ruby
+	source manyjobs.sh
+```
 
 ### Code to running many files offline cluster
 
