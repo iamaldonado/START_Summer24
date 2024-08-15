@@ -28,6 +28,12 @@ split -l Number_of_lines -d name_of_our_list.txt
 The file is split into short files based on the number of lines which we want using `-l` option as shown. Also, we can change the split files suffix to numeric by using the `-d` option.
 
 ## Our file
+The file that we will run in the offline cluster, is "RunAnalyses. `C`, which is the following. This macro will help us run our analytic train.
+
+The important part that we must remember is the list of which information will be taken. For in the code that is presented is "ListTEST.txt". However, that list only contains 500 events, which were taken to test everything was working well. 
+
+The next section shows how you can change that part for the lists we create.
+* [RunAnalyses.C](RunAnalyses.C)
 
 ### Code to generated many jobs
 
