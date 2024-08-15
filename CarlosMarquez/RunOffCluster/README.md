@@ -29,9 +29,25 @@ The file is split into short files based on the number of lines which we want us
 
 ## Our file
 
-## Code to generated many jobs
+### Code to generated many jobs
 
-## Code to running many files offline cluster
+### Code to running many files offline cluster
+
+### Code to gather all output files
+
+## Commands to Use Slurm with Offline Cluster
+
+### sbatch
+
+### scancel
+
+### sinfo
+
+### squeue
+
+## Possible Errors
+
+### Status of the Cluster
 
 
 PS
