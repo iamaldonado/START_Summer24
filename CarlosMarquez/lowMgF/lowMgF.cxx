@@ -18,7 +18,7 @@ void lowMgF::UserInit(){
   
   if(s__gl_PID == 2){                   // Initialization of the MpdPid
     fPID = new MpdPid(s__id_TOFSigma, s__id_TPCSigma, s__mid_Energy, s__mid_Coef, s__mid_Generator.c_str(), s__mid_Tracking.c_str(), s__mid_IniString.c_str());
-  }
+ }
   
   fOutputList = new TList();            // Standard list for the output histograms (MpdAnalysisTask)
   fOutputList -> SetOwner(kTRUE);       // Some default line (MpdAnalysisTask)
@@ -342,8 +342,8 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    }
 		// Cuts
   // if(TMath::Abs(pt_reco) < 1.5) continue; 
-   if(NHits > 27) continue;
-   if(Eta > -1.5 && Eta < 1.5) continue;
+   if(NHits < 27) continue;
+   if(TMath::Abs(Eta) > 1.5) continue;
    if(DCAG > 1) continue;
 
    DPtPtReco	->	Fill(pt_reco,DPt);
@@ -383,7 +383,7 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    Int_t abspdg = TMath::Abs( pdg );
 
   // if(TMath::Abs(pt_mc) < 1.5) continue; 
-   if(Eta > -1.5 && Eta < 1.5) continue;
+   if(TMath::Abs(Eta) > 1.5) continue;
  
 	// Track Efficiency
    if(mctrack -> GetMotherId() ==-1 ) //Primarias
@@ -408,23 +408,6 @@ lowMgF::~lowMgF(){}
 void lowMgF::Finish(){
   if(s__gl_ptcorr) s__gl_ptcorr_file -> Close(); // Close the settings file
 }
-
-//_____________________________________________
-
-//int MpdNuclei::particle_by_pdg(const int value){
- // for(int particle = 0; particle < s__p_List.size(); ++particle){
- //   if (value == s__p_List[particle].pdg) return particle;
- // }
- // return -1;
-//}
-//_______________________________________________
-
-//___________________________________________________________________________________________________________
-/**
-  This subroutine reads the parameters from the
-    JSON-formatted settings file
-  \param fname Configuration file
-*/
 void lowMgF::read_settings_json(const char* fname){
   namespace settings = boost::property_tree;
   settings::ptree s_tree;
