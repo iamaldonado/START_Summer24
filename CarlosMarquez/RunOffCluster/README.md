@@ -14,7 +14,7 @@ Everything we should consider will be explained in detail in this work. We will 
 
 ```ruby
 ls /address_of_our_files/*range-number* > name_of_our_new_list.txt
-
+```
 
 PS
 Not running here as it was too much information and filling up. So we decided to run everything in the ~/scratch2/marquez. I will make corrections later to make it easier.
