@@ -7,11 +7,23 @@ Let's start to our example, we have a lot of information, so I chose to divided 
 
 > Why do we need a lot of lists?
 
-The main reason for making a large list is because we can’t put too much information in one single file \textit{.txt}. So, if we try to put all the information. It will send us an error, where it will tell us that the information does not exist. So, we’ll have to cancel everything and divide it into many lists.
+The main reason for making a large list is because we can’t put too much information in one single file `.txt` So, if we try to put all the information. It will send us an error, where it will tell us that the information does not exist. So, we’ll have to cancel everything and divide it into many lists.
+
+### Create many lists
+We put the next line in our Linux terminal and with this we will create each list, with the ranges that we want. For our example, we only need to made 20 lists.
+
+First, we use the commmand **ls** by placing the specific address of our files. This help us to find each file we want if we know the address. These are separated by a series of numbers. It's means, the ranges of information that we want.
 
 ```ruby
 ls /address_of_our_files/*range-number* > name_of_our_new_list.txt
 ```
+
+Where we put the range between asterisks, since this allows us to take the rest of the files that start with that value. There we will choose from which range we will take the files to form our lists. Then we use `>` to include this entire range in our file `.txt` which will have the name that we decide.
+
+
+Also, we have to split these lists because it’s a lot of information and could saturate the cluster and make it crash. So we can use the **split** command to divide into lists with the exact number of code lines that we want.
+
+
 
 PS
 Not running here as it was too much information and filling up. So we decided to run everything in the ~/scratch2/marquez. I will make corrections later to make it easier.
