@@ -2,7 +2,7 @@
 
 ## Content
 
-[Introduction](*Introduction)
+*[Introduction](*Introduction)
 
 ## Introduction
 
