@@ -45,6 +45,26 @@ The file is split into short files based on the number of lines which we want us
 
 ### squeue
 
+### Output Files
+
+### Check the Status 
+We can use the commands explained in the previous subsection and a mix of them to be able to check the states of what we are running on the cluster offline. 
+
+When we use `squeue` we can see the job-ID, the partition on which it is running, the file name, the user, the status, the time, node and number of the node on which each file is running. 
+
+```ruby
+     JOBID  PARTITION     NAME   USER   ST     TIME    NODES NODELIST(REASON)
+    1466553 lustre-te runanaun jcmarqzr  R    1:43:36      1 ncx131
+    1466552 lustre-te runanaun jcmarqzr  R    1:45:39      1 ncx130
+```
+We can also combine the "squeue" and "wc" commands to see exactly how many files are running in the offline cluster.
+
+```ruby
+    [in]    squeue | wc
+
+    [out]     3      24     235
+```
+
 ## Possible Errors
 
 ### Status of the Cluster
