@@ -12,6 +12,10 @@ When we have too much information that we want to analyze, a good solution is to
 Everything we should consider will be explained in detail in this work. We will explain in a general way each command and along with it we will give an example that was carried out successfully. Which ensures that it works the right way.
 
 
+```ruby
+ls /address_of_our_files/*range-number* > name_of_our_new_list.txt
+
+
 PS
 Not running here as it was too much information and filling up. So we decided to run everything in the ~/scratch2/marquez. I will make corrections later to make it easier.
 That is the main reason for writting this macro outside.
