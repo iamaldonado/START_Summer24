@@ -1,0 +1,34 @@
+set(INCLUDE_DIRECTORIES
+  ${BASE_INCLUDE_DIRECTORIES}
+  ${CMAKE_SOURCE_DIR}/core/mpdBase
+  ${CMAKE_SOURCE_DIR}/core/mpdPid
+  ${CMAKE_SOURCE_DIR}/simulation/mcStack
+  ${CMAKE_SOURCE_DIR}/physics/mpdPhysics
+  ${CMAKE_SOURCE_DIR}/physics/CleanClass
+)
+
+Set(SYSTEM_INCLUDE_DIRECTORIES
+  ${ROOT_INCLUDE_DIR}
+)
+
+include_directories(${INCLUDE_DIRECTORIES})
+include_Directories(SYSTEM ${SYSTEM_INCLUDE_DIRECTORIES})
+
+set(LINK_DIRECTORIES
+  ${ROOT_LIBRARY_DIR}
+  ${FAIRROOT_LIBRARY_DIR}
+)
+
+link_directories(${LINK_DIRECTORIES})
+
+set(SRCS
+CleanClass.cxx
+)
+
+Set(HEADERS)
+Set(LINKDEF CleanClassLinkDef.h)
+Set(LIBRARY_NAME CleanClass)
+Set(DEPENDENCIES)
+
+GENERATE_LIBRARY()
+
