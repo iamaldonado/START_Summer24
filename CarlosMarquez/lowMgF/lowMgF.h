@@ -6,7 +6,6 @@
 #include "MpdKalmanFilter.h"
 #include "MpdMCTrack.h"
 #include "MpdVertex.h"
-#include "MpdPid.h"
 #include "MpdTofMatchingData.h"
 
 #include "TH1.h"
@@ -18,8 +17,7 @@
 
 #include <string>
 
-class lowMgF: public MpdAnalysisTask, public MpdPid {
-  MpdPid  *fPID;
+class lowMgF: public MpdAnalysisTask {
   
 public:
   lowMgF();
@@ -42,28 +40,28 @@ public:
 
 //__________________________________________________________________________________
 
- // Histograms Transverse Momemtum vs Rapidity
+//____All Histograms________________________________________________________________
 
-	// Monte Carlo
-   TH2F *PtMCvsEta;
+//------Primary Vertex Position-------
+   
+   TH1F *VertexPosition;	// Vtx Resolution
+   
+   TH2F *DZvsZReco;		// Resolution vs Z Recontruction
+   TH2F *DZNtracks;		// Resolution vs Number of Track
+   TH2F *DZb;      		// Resolution vs Impact Parameter
 
-	// Reco
-   TH2F *PtRECOvsEta;
-   TH1F *VertexPosition;
+   TProfile *TPDZvsZReco;	// TProfile Resolution vs Z Recontruction
+   TProfile *TPDZNtracks;	// TProfile Resolution vs Number of Track
+   TProfile *TPDZb;		// TProfile Resolution vs Impact Parameter
 
-	// Vtx Resolution
-   // TH2F
-   TH2F *DZvsZReco;
-   TH2F *DZNtracks;
-   TH2F *DZb;
+   TProfile2D *TPDZNtracksW;	// TProfile2D/Weight Resolution vs Number of Track
+   TProfile2D *TPDZbW;		// TProfile2D/Weight Resolution vs Impact Parameter
 
-   // TProfile
-   TProfile *TPDZvsZReco;
-   TProfile *TPDZNtracks;
-   TProfile *TPDZb;
+//-------Tranverse Momemtum----------
 
-   TProfile2D *TPDZNtracksW;
-   TProfile2D *TPDZbW;
+   TH2F *PtMCvsEta;		// Monte Carlos versus Psuedo-Rapidity
+
+   TH2F *PtRECOvsEta;		// Recontruction versus Pseudo-Rapidity
 
 	// without Cuts
    TProfile *PtNHits;		// Number of Hits
@@ -122,4 +120,3 @@ public:
   ClassDef(lowMgF,1);
 };
 #endif
-
