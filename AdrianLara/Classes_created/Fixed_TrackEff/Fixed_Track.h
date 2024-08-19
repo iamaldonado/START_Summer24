@@ -94,7 +94,7 @@ class Fixed_Track: public MpdAnalysisTask {
 
 
   //MC Reco and Pri, Sec Particles, Kaons, Protons, Pions
-  const static int NumHistMCPSKpPi1 = 3;
+  const static int NumHistMCPSKpPi1 = 1;
   char HistMCPSKpPi1_titles[NumHistMCPSKpPi1][300]={"pT"                                             
                                                     };
 
