@@ -1,4 +1,5 @@
 #include "lowMgF.h"
+//#include "TMath.h"
 
 ClassImp(lowMgF);
 
@@ -6,19 +7,11 @@ ClassImp(lowMgF);
 lowMgF::lowMgF(){
 }
 
-lowMgF::lowMgF(const char *name, const char *outputName, const char* settings_filename ) : MpdAnalysisTask(name, outputName){
-  mParamConfig = outputName;
-  settings_file = settings_filename;
+lowMgF::lowMgF(const char *name, const char *outputName) : MpdAnalysisTask(name, outputName){
 }
 
 void lowMgF::UserInit(){
   printf("lowMgF::Initialization\n");
-  
-  read_settings_json(settings_file);    // read settings file (JSON-formatted)
-  
-  if(s__gl_PID == 2){                   // Initialization of the MpdPid
-    fPID = new MpdPid(s__id_TOFSigma, s__id_TPCSigma, s__mid_Energy, s__mid_Coef, s__mid_Generator.c_str(), s__mid_Tracking.c_str(), s__mid_IniString.c_str());
- }
   
   fOutputList = new TList();            // Standard list for the output histograms (MpdAnalysisTask)
   fOutputList -> SetOwner(kTRUE);       // Some default line (MpdAnalysisTask)
@@ -220,8 +213,8 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 
   int ntrmc = mMCTracks -> GetEntries();
  // cout << "N of MC tracks = " << ntrmc << endl;
-
-  if(s__gl_MC){ 
+bool make_MC=1;
+  if(make_MC){ 
   	
     for (long int i = 0; i < ntrmc; i++) {
     
@@ -406,115 +399,5 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 lowMgF::~lowMgF(){}
 
 void lowMgF::Finish(){
-  if(s__gl_ptcorr) s__gl_ptcorr_file -> Close(); // Close the settings file
+
 }
-void lowMgF::read_settings_json(const char* fname){
-  namespace settings = boost::property_tree;
-  settings::ptree s_tree;
-// Open settings file or terminate the program if it is not found
-  try{
-    settings::read_json(fname, s_tree);
-  }
-  catch(std::exception & e){
-    printf("EnerCLass1::Fail:: %s\n", e.what());
-    throw;
-  }
-
-// Global settings
-  s__gl_Verbose    =              s_tree.get<bool>("Verbose", 1);
-  s__gl_nMpdPID    = s_tree.get<short>("N_MPD_PID_Particles", 8);
-  s__gl_MC         =              s_tree.get<bool>("make_MC", 1);
-  s__gl_Efficiency =      s_tree.get<bool>("make_Efficiency", 1);
-  s__gl_PID        =            s_tree.get<short>("PID_mode", 2);
-  s__gl_DCA        =            s_tree.get<short>("DCA_mode", 0);
-  s__gl_TOF        =            s_tree.get<short>("TOF_mode", 0);
-  s__gl_ptcorr     =   s_tree.get<bool>("use_pt_corrections", 0);
-  if(s__gl_ptcorr){
-    std::string fcorrname = s_tree.get<std::string>("pt_corrections_file", "pt_corrections.root");
-    s__gl_ptcorr_file = new TFile(fcorrname.c_str(), "READ");
-    if(!s__gl_ptcorr_file || s__gl_ptcorr_file -> IsZombie()){
-      printf("Error opening file: %s\n", fcorrname.c_str());
-      exit(-1);
-    }
-  }
-
-  if(!s__gl_MC && s__gl_Efficiency){
-    printf("The efficiencies calculation can be enabled only if the 'make_MC' option is enabled\n");
-    printf("Disabling the efficiencies calculation\n");
-    s__gl_Efficiency = 0;
-  }
-
-  if((s__gl_PID < 0 || s__gl_PID > 2) && s__gl_Efficiency){
-    printf("The efficiencies calculation can be enabled only if PID mode is within 0..2\n");
-    printf("Disabling the efficiencies calculation\n");
-    s__gl_Efficiency = 0;
-    if(!s_tree.get_child_optional("MpdPid")){
-      printf("MpdPid settings are not defined\n");
-      exit(-1);
-    }
-    s__mid_Energy     = s_tree.get<float>("MpdPid.Energy");
-    s__mid_Coef       = s_tree.get<float>("MpdPid.Coef");
-    s__mid_Generator  = s_tree.get<std::string>("MpdPid.Generator");
-    s__mid_Tracking   = s_tree.get<std::string>("MpdPid.Tracking");
-    s__mid_IniString  = s_tree.get<std::string>("MpdPid.IniString");
-    s__mid_dEdx       = s_tree.get<bool>("MpdPid.Add_dedx_only");
-  }
-
-
-// Event settings
-  if(!s_tree.get_child_optional("Events")){
-    printf("Event cuts are not defined\n");
-    exit(-1);
-  }
-
-// Track settings
-  if(!s_tree.get_child_optional("Tracks")){
-    printf("Track cuts are not defined\n");
-    exit(-1);
-  }
-  s__tr_NHits          = s_tree.get<int>("Tracks.NHits");
-  s__tr_NSigmaDCAx     = s_tree.get<float>("Tracks.NSigmaDCAx");
-  s__tr_NSigmaDCAy     = s_tree.get<float>("Tracks.NSigmaDCAy");
-  s__tr_NSigmaDCAz     = s_tree.get<float>("Tracks.NSigmaDCAz");
-  s__tr_LowPtCut       = s_tree.get<float>("Tracks.LowPtCut");
-  s__tr_HighPtCut      = s_tree.get<float>("Tracks.HighPtCut");
-
-// PID settings
-  if(!s_tree.get_child_optional("PID")){
-    printf("PID cuts are not defined\n");
-    exit(-1);
-  }
-  s__id_TPCSigma     = s_tree.get<float>("PID.TPCSigma");
-  s__id_TOFSigma     = s_tree.get<float>("PID.TOFSigma");
-  s__id_TOFDphiSigma = s_tree.get<float>("PID.TOFDphiSigma");
-  s__id_TOFDzSigma   = s_tree.get<float>("PID.TOFDzSigma");
-
-
-// Particle settings
-  if(!s_tree.get_child_optional("Particles")){
-    printf("Particles are not defined\n");
-    exit(-1);
-  }
-  for(auto& particles_array : s_tree.get_child("Particles")){
-    particle_info p;
-    p.name              = particles_array.first.c_str();
-    p.pdg               = particles_array.second.get_child("PDG").get_value<int>();
-    p.mass              = particles_array.second.get_child("Mass").get_value<float>();
-    p.charge            = particles_array.second.get_child("Charge").get_value<int>();
-    p.enum_position     = particles_array.second.get_child("Enum").get_value<short>();
-
-    auto node_pt = particles_array.second.get_child("pt_bins");
-    for (auto it = node_pt.begin(); it != node_pt.end(); ++it){
-      int position = std::distance(node_pt.begin(), it);
-      p.pt_bins[position] = it->second.get_value<float>();
-    }
-
-    auto node_y = particles_array.second.get_child("rapidity_bins");
-    for (auto it = node_y.begin(); it != node_y.end(); ++it){
-      int position = std::distance(node_y.begin(), it);
-      p.rapidity_bins[position] = it->second.get_value<float>();
-    }
-
-    s__p_List.push_back(p);
-  }
-} // lowMgF::read_settings_json()
