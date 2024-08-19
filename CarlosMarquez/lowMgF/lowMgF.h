@@ -68,12 +68,6 @@ public:
 
 //__________________________________________________________________________________
   
- // Event settings
-  //float s__ev_PrimaryVertexZ;                   ///< Cut for the z-coordinate of the the primary vertex
-  //std::vector<centrality_bin> s__ev_Centrality; ///< Vector to store the centrality bins
-  //int n_centrality_bins;                        // The number of centrality bins
-
-
   // Track settings
   int   s__tr_NHits;              ///< Cut for the minimum number of hits
   float s__tr_NSigmaDCAx;         ///< N-Sigma cut for the DCAx
