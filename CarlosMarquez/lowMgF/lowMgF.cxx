@@ -466,17 +466,6 @@ void lowMgF::read_settings_json(const char* fname){
     printf("Event cuts are not defined\n");
     exit(-1);
   }
-  //s__ev_PrimaryVertexZ = s_tree.get<double>("Events.PrimaryVertexZ");
-  //for(auto& centrality_array : s_tree.get_child("Events.Centrality")){
-   // float low, high;
-    //float* const elements[2] = {&low, &high};
-    //auto element = std::begin(elements);
-    //for (auto& node : centrality_array.second){
-      //**element++ = node.second.get_value<double>();
-      //if (element == std::end(elements)) break;
-   // }
-   // s__ev_Centrality.push_back({low, high});
-  //}
 
 // Track settings
   if(!s_tree.get_child_optional("Tracks")){
