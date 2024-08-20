@@ -1,6 +1,6 @@
 # Running in the Offline Cluster :shipit: :electron:
 > [!NOTE]
-> We decided to run everything in the `~/scratch2/marquez'. Because doing it in our home could cause the memory to be filled, which caused that we could not work again until free space. This is the reason why we decided to make a whole folder separate with everything necessary to run many events in the cluster
+> We decided to run everything in the `~/scratch2/marquez`. Because doing it in our home could cause the memory to be filled, which caused that we could not work again until free space. This is the reason why we decided to make a whole folder separate with everything necessary to run many events in the cluster
 
 When we have too much information that we want to analyze, a good solution is to divide our data into different files and run them simultaneously, and finally we gather all the output files. To do this we will have to consider several aspects in order to run our analysis train.
 
