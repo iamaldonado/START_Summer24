@@ -1,4 +1,6 @@
 # Running in the Offline Cluster :shipit:
+> [!NOTE]
+> Not running here as it was too much information and filling up. So we decided to run everything in the ~/scratch2/marquez. I will make corrections later to make it easier. That is the main reason for writting this macro outside.
 
 When we have too much information that we want to analyze, a good solution is to divide our data into different files and run them simultaneously, and finally we gather all the output files. To do this we will have to consider several aspects in order to run our analysis train.
 
@@ -160,5 +162,4 @@ We can also combine the "squeue" and "wc" commands to see exactly how many files
 
 
 PS
-Not running here as it was too much information and filling up. So we decided to run everything in the ~/scratch2/marquez. I will make corrections later to make it easier.
-That is the main reason for writting this macro outside.
+
