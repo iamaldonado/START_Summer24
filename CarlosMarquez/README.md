@@ -1,4 +1,4 @@
-# Low Magnetif Field ::shipit: :electron: :mexico: :atom:
+# Low Magnetif Field :shipit: :electron: :mexico: :atom:
 
 
 Descriptio of your task
