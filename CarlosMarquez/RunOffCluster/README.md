@@ -30,7 +30,7 @@ The file is split into short files based on the number of lines which we want us
 ## Our file
 The file that we will run in the offline cluster, is `RunAnalyses.C`, which is the following. This macro will help us run our analytic train.
 
-The important part that we must remember is the list of which information will be taken. For in the code that is presented is "ListTEST.txt". However, that list only contains 500 events, which were taken to test everything was working well. 
+The important part that we must remember is the list of which information will be taken. For in the code that is presented is `ListTEST.txt`. However, that list only contains 500 events, which were taken to test everything was working well. 
 
 The next section shows how you can change that part for the lists we create.
 * [RunAnalyses.C](RunAnalyses.C)
@@ -44,7 +44,7 @@ Once this file is done, We run it using the following command.
 	source manyjobs.sh
 ```
 
-In the first part we are creating a loop with the "for", this will start at 0 and will go up to 20. Because with this we will be mapping all the lists that we create with the command "ls". 
+In the first part we are creating a loop with the `for`, this will start at 0 and will go up to 20. Because with this we will be mapping all the lists that we create with the command `ls`. 
 
 ```ruby
 	#!/bin/sh
@@ -54,7 +54,7 @@ In the first part we are creating a loop with the "for", this will start at 0 an
 ```
 After we proceed to create folders inside the folders because we divide our lists and also divide those lists. This is because we had too much information and running it in the offline cluster can become saturated because it can take a lot of time and resources. But by doing that we can decrease the time and resources being used.
 
-To split our lists and also divide those lists. We use the "split" command that we explain in this document. The reason for using it here is because it becomes more efficient, otherwise we would have to divide the lists one by one.
+To split our lists and also divide those lists. We use the `split` command that we explain in this document. The reason for using it here is because it becomes more efficient, otherwise we would have to divide the lists one by one.
 
 ```ruby
 	mkdir dir${INDEX}
@@ -73,11 +73,11 @@ To split our lists and also divide those lists. We use the "split" command that 
 	cp x01 xa1/x01
 ```
 
-The two new lists that were created are: xa0 and xa1. So we will proceed to create new folders and copy in these folders the new lists. This could be done with a "for" loop. Since that can help make more lists and more folders. However, for the moment it's working, since these lists are sufficient.
+The two new lists that were created are: `xa0` and `xa1`. So we will proceed to create new folders and copy in these folders the new lists. This could be done with a `for` loop. Since that can help make more lists and more folders. However, for the moment it's working, since these lists are sufficient.
 
 However, this is something that will be changed later.
 
-The next part is just copying to folders what you need to run the analysis train without any problem. The part that is important to explain is as follows. With this part of the code, we are telling you that file "RunAnalyses. C" the part called "listTEST.txt" changes it to the name of our new lists. For this case they are "xa0" and "xa1".
+The next part is just copying to folders what you need to run the analysis train without any problem. The part that is important to explain is as follows. With this part of the code, we are telling you that file `RunAnalyses.C` the part called `listTEST.txt` changes it to the name of our new lists. For this case they are `xa0` and `xa1`.
 
 Apart from making this change, you are also copying the modified file to the same folders where the other files were copied so that the analysis train can be run.
 
@@ -87,7 +87,7 @@ Apart from making this change, you are also copying the modified file to the sam
 	sed -e "s/listTEST/x01/" RunAnalyses.C > dir${INDEX}/xa1/RunAnalyses.C
 ```
 
-The next part is just to send the runanauno file to the offline cluster with the command "sbatch".
+The next part is just to send the runanauno file to the offline cluster with the command `sbatch.
 
 ```ruby
 	sbatch runanauno
@@ -102,10 +102,10 @@ The first part of the file shows the general data to run the file in the offline
 
 In the next part, that’s where we’ll load our environment variables. Where we also start the mpdroot and everything you need to run the train without any problems.
 
-And finally we run our analysis train, that is, the file "RunAnalyses. C".
+And finally we run our analysis train, that is, the file `RunAnalyses.C`.
 
 ```ruby
-root -l -b -q "RunAnalyses.C"
+	root -l -b -q "RunAnalyses.C"
 ```
 We use the next commands to run root: `-q` for Exit after processing command line macro files, `-l` for Do not show the ROOT banner, and `-b` for Run in batch mode without graphics.
 
