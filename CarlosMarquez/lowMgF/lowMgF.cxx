@@ -16,23 +16,26 @@ void lowMgF::UserInit(){
   fOutputList -> SetOwner(kTRUE);       // Some default line (MpdAnalysisTask)
   TH1::AddDirectory(kFALSE);            // Some default line (MpdAnalysisTask)
   TH2::AddDirectory(kFALSE);            // Some default line (MpdAnalysisTask)
-  
+
+ 
 //_____All Histograms________________________________________________________________
 
 //------Primary Vertex Position----------
  
    VertexPosition = new TH1F("VertexPosition0","Primary Vertex Position; Z_{Vertex} (cm); Entries", 200, -200, 200);
 
-   DZvsZReco	  =  new TH2F("DZvsZReco", "#Delta Z vs Z_{Reco} (cm) ; Z_{Reco} ; #Delta Z (cm)", 500, -200, 200, 500, 0, 250);
+   DZvsZReco	  =  new TH2F("DZvsZReco", "#Delta Z vs Z_{Reco} ; Z_{Reco} (cm) ; #Delta Z (cm)", 500, -200, 200, 500, 0, 250);
    DZNtracks	  =  new TH2F("DZNtracks", "#Delta Z vs NTracks ; Number of Tracks; #Delta Z (cm)", 500, 0, 500, 500,0,250);
    DZb		  =  new TH2F("DZb", "#Delta Z vs b; b (fm) ; #Delta Z (cm)", 100, 0, 16, 100, 0, 250);
 
-   TPDZvsZReco	  =  new TProfile("TPDZvsZReco", " TPtofile #Delta Z vs Z_{Reco} (cm) ; Z_{Reco} ; #Delta (cm)", 500, -200, 200, 0, 250);
+   TPDZvsZReco	  =  new TProfile("TPDZvsZReco", " TPtofile #Delta Z vs Z_{Reco} ; Z_{Reco} (cm) ; #Delta Z (cm)", 500, -200, 200, 0, 250);
    TPDZNtracks	  =  new TProfile("TPDZNtracks", "TProfile #Delta Z vs NTracks ; NTracks; #Detla Z (cm)", 500, 0, 500, 0, 250);
    TPDZb		  =  new TProfile("TPDZb", "TProfile #Delta Z vs b; b (fm) ; #Detla Z (cm)", 100, 0, 16, 0, 250);
 
    TPDZNtracksW	=  new TProfile2D("TPDZNtracksW", "Weight of Resolution of Z vs Number of Tracks; Number of Tracks; Z_{Reco} (cm) ; #Detla Z (cm)", 100, -4, 4, 100,0,5,0,4);
-   TPDZbW	=  new TProfile2D("TPDZbW", " Weight of Resolution of Z vs Impact parameter; b (fm); Z_{Reco}; #Delta Z", 100, -200, 200, 100,0, 160,0,4);
+   TPDZbW	=  new TProfile2D("TPDZbW", " Weight of Resolution of Z vs Impact parameter; b (fm); Z_{Reco} (cm) ; #Delta Z (cm)", 100, -200, 200, 100,0, 16,0,4);
+
+   VtxMult	=  new TProfile("VtxMult", " Vertex Resolution vs Track Multiplicity ; Track Multiplicity ; #Delta Z = |Z_{reco} - Z_{MC}| (%)  ", 150,0,800,0,15);
 
 //------List Primary Vertex Position----- 
 	
@@ -49,82 +52,122 @@ void lowMgF::UserInit(){
 	fOutputList -> Add(TPDZNtracksW);
 	fOutputList -> Add(TPDZbW);
 
+	fOutputList -> Add(VtxMult);
+
 //------------Tranverse Momemtum----------------
    
    PtMCvsEta	=  new TH2F("PtMCvsEta", "p_{t}^{mc} vs #eta ; #eta ; p_{t}^{mc} (GeV/c)", 500, -3, 3, 500, 0, 4);
 
-   PtRECOvsEta	=  new TH2F("ptRECOvsEta", "p_{t}^{reco} vs #eta; #eta (cm) ; p_{t}^{reco} (Gev/c)", 500, -3, 3, 500, 0, 4);
+   PtRECOvsEta	=  new TH2F("ptRECOvsEta", "p_{t}^{reco} vs #eta; #eta ; p_{t}^{reco} (Gev/c)", 500, -3, 3, 500, 0, 4);
  
-//------------List Tranverse Momemtum-------------
-
-	fOutputList -> Add(PtRECOvsEta);
-
-	fOutputList -> Add(PtMCvsEta);
+   DPtPtReco	=  new TProfile("DPtPtReco", " Transverse Momentum Resolution as a function of Transverse Momentum ; p_{T}^{Reco} (GeV/c) ; #Delta p_{T} = |#frac{p_{T}^{reco} - p_{T}^{MC}}{p_{T}^{MC}}| (%) ", 150,0,5,0,15);
 
 	// Without Cuts
-		// Parameters
    PtNHits	=  new TProfile("DptvsNHits", " #Delta p_{T} vs NHits ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
-	fOutputList -> Add(PtNHits);
-
    PtEta	=  new TProfile("DptvsEta", "#Delta p_{T} vs #eta ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
-	fOutputList -> Add(PtEta);
-
-			// DCA Global
    PtDCAGlobal	=  new TProfile("DptvsDCAGlobal", " #Delta p_{T} vs DCA Global ; DCA Global ; #Delta p_{T}", 150,0,5,0,15);
-	fOutputList -> Add(PtDCAGlobal);
-
    PtDCAGlobalP	=  new TProfile("DptvsDCAGP", " #Delta p_{T} vs DCAGlobal Primary ; DCAGlobal ; #Delta p_{T}", 150,0,5,0,15);
-	fOutputList -> Add(PtDCAGlobalP);
-
    PtDCAGlobalS =  new TProfile("DptvsDCAGS", " #Delta p_{T} vs DCAGlobal Secondary; DCAGlobal ; #Delta p_{T}", 150,0,5,0,15);
-	fOutputList -> Add(PtDCAGlobalS);
 
-		// Resolution 
+
    PtEtaDPt	=  new TProfile2D("PtEtaDPt", "#Delta p_{t};#eta; #Detla p_{t} (Gev/c)", 100, -4, 4, 100,0,5,0,4);
-	fOutputList -> Add(PtEtaDPt);
+   
+	// With Cuts in Number of Hits
+   PtNHitsC	=  new TProfile("DptvsNHitsC", " #Delta p_{T} vs NHits with cut NHits > 27 ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
+   PtEtaC	=  new TProfile("DptvsEtaC", " #Delta p_{T} vs #eta with cut NHits > 27 ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
+   PtDCAGlobalC	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalPC=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalSC=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+
+   PtEtaDPtC	=  new TProfile2D("PtEtaDPtC","#Delta p_{T} with cut NHits > 16 ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+
+	// With Cuts in Pseudo-Rapidity
+   PtNHitsCE		=  new TProfile("DptvsNHitsCE", " #Delta p_{T} vs NHits wiht cut in #eta (-1.5, 1.5) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
+   PtEtaCE		=  new TProfile("DptvsEtaCE", " #Delta p_{T} vs #eta with cut #eta (-1.5, 1.5) ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
+   PtDCAGlobalCE	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalPCE	=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalSCE	=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+
+   PtEtaDPtCE	=  new TProfile2D("PtEtaDPtCE","#Delta p_{T} with cut #eta (-1,1) ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+
+	// With Cuts in DCA Global
+   PtNHitsDCA		=  new TProfile("DptvsNHitsDCA", " #Delta p_{T} vs NHits wiht cut in #eta (-1.5, 1.5) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
+   PtEtaDCA		=  new TProfile("DptvsEtaDCA", " #Delta p_{T} vs #eta with cut #eta (-1.5, 1.5) ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
+   PtDCAGlobalDCA	=  new TProfile("DptvsDCAGDCA", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalPDCA	=  new TProfile("DptvsDCAGPDCA", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalSDCA	=  new TProfile("DptvsDCAGSDCA", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+
+   PtEtaDPtDCA		=  new TProfile2D("PtEtaDPtDCA","#Delta p_{T} with cut #eta (-1,1) ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+
+	// With Cuts in Transverse Momentum
+   PtNHitsCPT		=  new TProfile("DptvsNHitsCPT", " #Delta p_{T} vs NHits wiht cut in p_{T} > 0.15 (Gev/c) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
+   PtEtaCPT		=  new TProfile("DptvsEtaCPT", " #Delta p_{T} vs #eta with cut in p_{T} > 0.15 (GeV/c) ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
+   PtDCAGlobalCPT	=  new TProfile("DptvsDCAGCPT", " #Delta p_{T} vs DCAGlobal with cut in p_{T} > 0.15 (GeV/c)  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalPCPT	=  new TProfile("DptvsDCAGPCPT", " #Delta p_{T} vs DCAGlobal Primary with cut p_{T} > 0.15 (Gev/c) ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalSCPT	=  new TProfile("DptvsDCAGSCPT", " #Delta p_{T} vs DCAGlobal Secondary with cut p_{T} > 0.15 (GeV/c) ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+
+   PtEtaDPtCPT		=  new TProfile2D("PtEtaDPtCPT","#Delta p_{T} with cut p_{T} >0.15 (GeV/c) ;#eta ;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+
+//------------List Tranverse Momemtum-------------
+	fOutputList -> Add(PtRECOvsEta);	// Monte-Carlo vs Pseudo-Rapidity
+
+	fOutputList -> Add(PtMCvsEta);		// Reconstruted vs Pseudo-Rapidity
+
+	fOutputList -> Add(DPtPtReco);		// Transverse Momentum as a function of Transverse Momentum
+
+	// Without Cuts
+	fOutputList -> Add(PtNHits);		// Number of Hits
+	fOutputList -> Add(PtEta);		// Pseudo-Rapidity
+	fOutputList -> Add(PtDCAGlobal);	// DCA Global
+	fOutputList -> Add(PtDCAGlobalP);	// DCA Global Primary
+	fOutputList -> Add(PtDCAGlobalS);	// DCA Global Secondary
+
+	fOutputList -> Add(PtEtaDPt);		// Resolution 
 
 	// With Cuts in NHits
-		// Parameters
-   PtNHitsC	=  new TProfile("DptvsNHitsC", " #Delta p_{T} vs NHits with cut NHits > 27 ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
 	fOutputList -> Add(PtNHitsC);
-
-   PtEtaC	=  new TProfile("DptvsEtaC", " #Delta p_{T} vs #eta with cut NHits > 27 ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
 	fOutputList -> Add(PtEtaC);
-
-	// With Cuts in Eta
-		// Parameters
-   PtNHitsCE	=  new TProfile("DptvsNHitsCE", " #Delta p_{T} vs NHits wiht cut in #eta (-1.5, 1.5) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
-	fOutputList -> Add(PtNHitsCE);
-
-   PtEtaCE	=  new TProfile("DptvsEtaCE", " #Delta p_{T} vs #eta with cut #eta (-1.5, 1.5) ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
-	fOutputList -> Add(PtEtaCE);
-
-		// DCA GLobal
-   PtDCAGlobalC	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 	fOutputList -> Add(PtDCAGlobalC);
-
-   PtDCAGlobalPC=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 	fOutputList -> Add(PtDCAGlobalPC);
-
-   PtDCAGlobalSC=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 	fOutputList -> Add(PtDCAGlobalSC);
 
-	// Resolution with cut in Number of Hits
-   PtEtaDPtC	=  new TProfile2D("PtEtaDPtC","#Delta p_{T} with cut NHits > 16 ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
 	fOutputList -> Add(PtEtaDPtC);
-	
- 	// Resolution with cut in Eta
-   PtEtaDPtCE	=  new TProfile2D("PtEtaDPtCE","#Delta p_{T} with cut #eta (-1,1) ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+
+	// With Cuts in Eta
+	fOutputList -> Add(PtNHitsCE);
+	fOutputList -> Add(PtEtaCE);
+	fOutputList -> Add(PtDCAGlobalCE);	// DCA Global
+	fOutputList -> Add(PtDCAGlobalPCE);	// DCA Global Primary
+	fOutputList -> Add(PtDCAGlobalSCE);	// DCA Global Secondary
+
 	fOutputList -> Add(PtEtaDPtCE);	
 
-	// DCA Global
-   DCAGC = new TH1F("DCAGlobalC","DCA Global wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);
+	// With Cuts in DCA Global
+	fOutputList -> Add(PtNHitsDCA);		// Number of Hits
+	fOutputList -> Add(PtEtaDCA);		// Pseudo-Rapidity
+	fOutputList -> Add(PtDCAGlobalDCA);	// DCA Global
+	fOutputList -> Add(PtDCAGlobalPDCA);	// DCA Global Primary
+	fOutputList -> Add(PtDCAGlobalSDCA);	// DCA Global Secondary
+
+	fOutputList -> Add(PtEtaDPtDCA);	// Resoltion
+
+	// With Cuts in Transverse Momentum
+	fOutputList -> Add(PtNHitsCPT);		// Number of Hits
+	fOutputList -> Add(PtEtaCPT);		// Pseudo-Rapidity
+	fOutputList -> Add(PtDCAGlobalCPT);	// DCA Global
+	fOutputList -> Add(PtDCAGlobalPCPT);	// DCA Global Primary
+	fOutputList -> Add(PtDCAGlobalSCPT);	// DCA Global Secondary
+
+	fOutputList -> Add(PtEtaDPtCPT);	// Resolution
+
+//--------DCA Global----------------------
+   DCAGC = new TH1F("DCAGlobalC","DCA Global wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);		// DCA Global
+   DCAGPC = new TH1F("DCAGlobalPC","DCA Global Primary wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);	// DCA Global Primary
+   DCAGSC = new TH1F("DCAGlobalSC","DCA Global Secondary wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);	// DCA Global Secondary
+
+//-------List DCA Global------------------
 	fOutputList -> Add(DCAGC);
-
-   DCAGPC = new TH1F("DCAGlobalPC","DCA Global Primary wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);
 	fOutputList -> Add(DCAGPC);
-
-   DCAGSC = new TH1F("DCAGlobalSC","DCA Global Secondary wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);
 	fOutputList -> Add(DCAGSC);
 
 //-------Track Efficiency------------------
@@ -161,44 +204,32 @@ void lowMgF::UserInit(){
 	fOutputList -> Add(PtMCKaonP);
 	fOutputList -> Add(PtMCKaonS);
 
-   DPtPtReco	=  new TProfile("DPtPtReco", " Transverse Momentum Resolution as a function of Transverse Momentum ; p_{T}^{Reco} (GeV/c) ; #Delta p_{T} = |#frac{p_{T}^{reco} - p_{T}^{MC}}{p_{T}^{MC}}| (%) ", 150,0,5,0,15);
-	fOutputList -> Add(DPtPtReco);
-
-//------Multiplicity---------------------
-
-   VtxMult	=  new TProfile("VtxMult", " Vertex Resolution vs Track Multiplicity ; Track Multiplicity ; #Delta z = |#frac{z_{reco} - z_{MC}}{z_{MC}}| (%)  ", 150,0,800,0,15);
-
-//-----List Multiplicity----------------
-
-	fOutputList -> Add(VtxMult);
-
 }
 
 void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 
-  mMpdGlobalTracks = event.fMPDEvent->GetGlobalTracks();                   // All needed branches are accessed in this code block:
-  mKalmanTracks    =              event.fTPCKalmanTrack;                   // MPD global tracks, TPC Kalman track
+  mMpdGlobalTracks	=	event.fMPDEvent->GetGlobalTracks();	// All needed branches are accessed in this code block:
+  mKalmanTracks		=	event.fTPCKalmanTrack;			// MPD global tracks, TPC Kalman track
 --------------------------------------------------------------------------------------------------------------------
-  mMCTracks        =                     event.fMCTrack;                   // Monte-Carlo tracks
+  mMCTracks		=	event.fMCTrack;				// Monte-Carlo tracks
 --------------------------------------------------------------------------------------------------------------------  
-  tofMatches       =                 event.fTOFMatching;                   // ToF matching
+  tofMatches		=	event.fTOFMatching;			// ToF matching
 --------------------------------------------------------------------------------------------------------------------
-  vtxs		= 		event.fVertex;
+  vtxs			=	event.fVertex;				// Vertex Position
 --------------------------------------------------------------------------------------------------------------------
-  mMCEventHeader = event.fMCEventHeader;
+  mMCEventHeader	=	event.fMCEventHeader;			// MC Event Header
+   
+	 //Primary Vertex point 
+   Int_t nVert		= vtxs->GetEntriesFast();
+   MpdVertex *vtx 	= (MpdVertex*) vtxs->First();
 
+   Double_t ZReco	= vtx -> GetZ();
+   Int_t nTVert		= vtx->GetNTracks();
+   Double_t ZMC		= mMCEventHeader-> GetZ();
+   Double_t b		= mMCEventHeader -> GetB();
+   Double_t absZ	= TMath::Abs( ZReco );
 
-    //PrimaryVtx point 
-   Int_t nVert = vtxs->GetEntriesFast();
-   MpdVertex *vtx = (MpdVertex*) vtxs->First();
-
-   Double_t ZReco = vtx -> GetZ();
-   Int_t nTVert = vtx->GetNTracks();
-   Double_t ZMC = mMCEventHeader-> GetZ();
-   Double_t b = mMCEventHeader -> GetB();
-   Double_t absZ= TMath::Abs( ZReco );
-
-   Double_t DZ	= TMath::Abs(( ZReco - ZMC ) / ( ZMC ));
+   Double_t DZ		= TMath::Abs( ZReco - ZMC );
 
    TVector3 Prim_Vtx(vtx->GetX(),vtx->GetY(),vtx->GetZ()); 
  
@@ -223,6 +254,11 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
    Int_t refMult;
 
    refMult = 0; 
+
+//____Cuts______________________________________________________________________
+
+  const Double_t CutNHits = 27;		// My cut is: 27
+
 //-----------------------------------------------
 
   int ntrmc = mMCTracks -> GetEntries();
@@ -265,16 +301,13 @@ bool make_MC=1;
 	Double_t DCAY	=  track -> GetDCAY();
 	Double_t DCAZ	=  track -> GetDCAZ();
 
-
 //____________________________________________________________________________________________________________________________________________
    Int_t ID = track -> GetID(); 
    MpdMCTrack *mctrack = (MpdMCTrack*)mMCTracks -> UncheckedAt(ID); 		// Monte Carlo track is open for reading	
    
     int   pdg		= mctrack -> GetPdgCode();                               // Track PDG code
     int   prodId	= mctrack -> GetMotherId();                              // Track primacy: -1 = primary, any other = secondary
-    float p_mc		= mctrack -> GetP();                                     // Particle full momentum
     float pt_mc		= mctrack -> GetPt();                                    // Particle transverse momentum
-    float pz_mc		= mctrack -> GetPz();                                    // Particle momentum z-component
 
 //_____________________________________________________________________________________________________________________________________________
 
@@ -295,7 +328,7 @@ bool make_MC=1;
 
 	// No se todavia
    PtEtaDPt 	->	Fill(Eta, pt_reco,DPt);
-   if(NHits>27)PtEtaDPtC 	->	Fill(Eta, pt_reco,DPt);
+   if(NHits < CutNHits)PtEtaDPtC 	->	Fill(Eta, pt_reco,DPt);
   	// MC
    PtMCvsEta	->	Fill(Eta, pt_mc);
 
@@ -314,11 +347,11 @@ bool make_MC=1;
    if(mctrack->GetMotherId()==-1) //Primarias
    {
 	PtDCAGlobalP 	->	Fill(DCAG, DPt);
-   	if(NHits > 27)
+   	if(NHits < CutNHits)
         {
 		PtDCAGlobalPC 	->	Fill(DCAG, DPt);
 		DCAGPC 	->	Fill(DCAG);
-		if(Eta > -1.5 && Eta < 1.5)
+		if(TMath::Abs(Eta) > 1.5)
 		{
 		}
         }
@@ -326,18 +359,19 @@ bool make_MC=1;
    if(mctrack->GetMotherId()!=-1) // Secondary
    {
 	PtDCAGlobalS	->	Fill(DCAG, DPt);
-   	if(NHits > 27)
+   	if(NHits < CutNHits)
 	{
 		PtDCAGlobalSC ->	Fill(DCAG, DPt);
 		DCAGSC	->	Fill(DCAG);
 	}
    }
-   if(NHits > 27)
+
+   if(NHits < CutNHits)
    {
    	PtNHitsC	->	Fill(NHits, DPt);
    	PtDCAGlobalC	-> 	Fill(DCAG, DPt);
    	PtEtaC	-> 	Fill(Eta, DPt);
-	if(Eta > -1.5 && Eta < 1.5)
+	if(TMath::Abs(Eta) > 1.5)
 	{
 	   	PtNHitsCE	->	Fill(NHits, DPt);
    		PtEtaCE	-> 	Fill(Eta, DPt);
@@ -348,7 +382,7 @@ bool make_MC=1;
    }
 		// Cuts
   // if(TMath::Abs(pt_reco) < 1.5) continue; 
-   if(NHits < 27) continue;
+   if(NHits < CutNHits) continue;
    if(TMath::Abs(Eta) > 1.5) continue;
    if(DCAG > 1) continue;
 
@@ -380,16 +414,16 @@ bool make_MC=1;
   for (int i=0; i<nmctracks; i++){
   auto mctrack = (MpdMCTrack*) mMCTracks->UncheckedAt(i); 
 
-    int   pdg		= mctrack -> GetPdgCode();                               // Track PDG code
-    float pt_mc		= mctrack -> GetPt();                                    // Particle transverse momentum
-    TVector3 P(mctrack->GetPx(),mctrack->GetPy(),mctrack->GetPz()); 
-    Double_t Eta=0.5*TMath::Log((P.Mag() + mctrack->GetPz())/(P.Mag() - mctrack->GetPz()+1.e-13));
+    int   pdg		= mctrack -> GetPdgCode();                              // Track PDG code
+    float pt_mc		= mctrack -> GetPt();                                   // Particle transverse momentum
+    TVector3 P(mctrack->GetPx(),mctrack->GetPy(),mctrack->GetPz());		// Definition of the vector of momentum
+    Double_t Eta=0.5*TMath::Log((P.Mag() + mctrack->GetPz())/(P.Mag() - mctrack->GetPz()+1.e-13)); // Calculate of Pseudo-Rapidity
   
      // Absolute PDG
    Int_t abspdg = TMath::Abs( pdg );
 
   // if(TMath::Abs(pt_mc) < 1.5) continue; 
-   if(TMath::Abs(Eta) > 1.5) continue;
+   if(TMath::Abs(Eta) > 1.5) continue;		// Cut on the Pseudo-Rapidity
  
 	// Track Efficiency
    if(mctrack -> GetMotherId() ==-1 ) //Primarias
@@ -404,7 +438,6 @@ bool make_MC=1;
 	if(pdg == 2212)  PtMCProtonS	->	Fill(pt_mc);
 	if(pdg == 321)  PtMCKaonS	->	Fill(pt_mc);
    }
-
  } // Close the second loop.
 }
 
