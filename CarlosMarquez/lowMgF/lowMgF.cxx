@@ -63,41 +63,41 @@ void lowMgF::UserInit(){
    DPtPtReco	=  new TProfile("DPtPtReco", " Transverse Momentum Resolution as a function of Transverse Momentum ; p_{T}^{Reco} (GeV/c) ; #Delta p_{T} = |#frac{p_{T}^{reco} - p_{T}^{MC}}{p_{T}^{MC}}| (%) ", 150,0,5,0,15);
 
 	// Without Cuts
-   PtNHits	=  new TProfile("DptvsNHits", " #Delta p_{T} vs NHits ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
-   PtEta	=  new TProfile("DptvsEta", "#Delta p_{T} vs #eta ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
-   PtDCAGlobal	=  new TProfile("DptvsDCAGlobal", " #Delta p_{T} vs DCA Global ; DCA Global ; #Delta p_{T}", 150,0,5,0,15);
-   PtDCAGlobalP	=  new TProfile("DptvsDCAGP", " #Delta p_{T} vs DCAGlobal Primary ; DCAGlobal ; #Delta p_{T}", 150,0,5,0,15);
-   PtDCAGlobalS =  new TProfile("DptvsDCAGS", " #Delta p_{T} vs DCAGlobal Secondary; DCAGlobal ; #Delta p_{T}", 150,0,5,0,15);
+   PtNHits	=  new TProfile("DptvsNHits", " #Delta p_{T} vs NHits ; NumHits ; #Delta p_{T} (GeV/c)", 100,0,50,0,15);
+   PtEta	=  new TProfile("DptvsEta", "#Delta p_{T} vs #eta ; #eta ; #Delta p_{T} (GeV/c)", 100, -3, 3, 0, 5);
+   PtDCAGlobal	=  new TProfile("DptvsDCAGlobal", " #Delta p_{T} vs DCA Global ; DCA Global (cm); #Delta p_{T} (GeV/c)", 150,0,5,0,15);
+   PtDCAGlobalP	=  new TProfile("DptvsDCAGP", " #Delta p_{T} vs DCAGlobal Primary ; DCAGlobal (cm); #Delta p_{T} (GeV/c)", 150,0,5,0,15);
+   PtDCAGlobalS =  new TProfile("DptvsDCAGS", " #Delta p_{T} vs DCAGlobal Secondary; DCAGlobal (cm); #Delta p_{T} (GeV/c)", 150,0,5,0,15);
 
 
-   PtEtaDPt	=  new TProfile2D("PtEtaDPt", "#Delta p_{t};#eta; #Detla p_{t} (Gev/c)", 100, -4, 4, 100,0,5,0,4);
+   PtEtaDPt	=  new TProfile2D("PtEtaDPt", "#Delta p_{t};#eta; #Detla p_{t} (Gev/c); #Delta p_{T}", 100, -4, 4, 100,0,5,0,4);
    
 	// With Cuts in Number of Hits
-   PtNHitsC	=  new TProfile("DptvsNHitsC", " #Delta p_{T} vs NHits with cut NHits > 27 ; NumHits ; #Delta p_{T}", 100,0,50,0,15);
-   PtEtaC	=  new TProfile("DptvsEtaC", " #Delta p_{T} vs #eta with cut NHits > 27 ; #eta ; #Delta p_{T}", 100, -3, 3, 0, 5);
-   PtDCAGlobalC	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
-   PtDCAGlobalPC=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
-   PtDCAGlobalSC=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtNHitsC	=  new TProfile("DptvsNHitsC", " #Delta p_{T} vs NHits with cut NHits > 27 ; NumHits ; #Delta p_{T} (GeV/c)", 100,0,50,0,15);
+   PtEtaC	=  new TProfile("DptvsEtaC", " #Delta p_{T} vs #eta with cut NHits > 27 ; #eta ; #Delta p_{T} (GeV/c)", 100, -3, 3, 0, 5);
+   PtDCAGlobalC	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal with cut NHits > 27  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalPC=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 27 ; DCAGlobal (cm); #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalSC=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal (cm); #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 
-   PtEtaDPtC	=  new TProfile2D("PtEtaDPtC","#Delta p_{T} with cut NHits > 16 ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+   PtEtaDPtC	=  new TProfile2D("PtEtaDPtC","#Delta p_{T} with cut NHits > 27 ;#eta;p_{T} (GeV/c);#Delta p_{T} (GeV/c)",100,-4,4,100,0,5,0,4);
 
 	// With Cuts in Pseudo-Rapidity
    PtNHitsCE		=  new TProfile("DptvsNHitsCE", " #Delta p_{T} vs NHits wiht cut in #eta (-1.5, 1.5) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
    PtEtaCE		=  new TProfile("DptvsEtaCE", " #Delta p_{T} vs #eta with cut #eta (-1.5, 1.5) ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
-   PtDCAGlobalCE	=  new TProfile("DptvsDCAGC", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
-   PtDCAGlobalPCE	=  new TProfile("DptvsDCAGPC", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
-   PtDCAGlobalSCE	=  new TProfile("DptvsDCAGSC", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalCE	=  new TProfile("DptvsDCAGCE", " #Delta p_{T} vs DCAGlobal with cut in #eta (-1.5, 1.5) ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalPCE	=  new TProfile("DptvsDCAGPCE", " #Delta p_{T} vs DCAGlobal Primary with cut in #eta (-1.5, 1.5) ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalSCE	=  new TProfile("DptvsDCAGSCE", " #Delta p_{T} vs DCAGlobal Secondary with cut in #eta (-1.5, 1.5) ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 
-   PtEtaDPtCE	=  new TProfile2D("PtEtaDPtCE","#Delta p_{T} with cut #eta (-1,1) ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+   PtEtaDPtCE	=  new TProfile2D("PtEtaDPtCE","#Delta p_{T} with cut #eta (-1,1) ;#eta;p_{T} (GeV/c); #Delta p_{T} (GeV/c)",100,-4,4,100,0,5,0,4);
 
 	// With Cuts in DCA Global
-   PtNHitsDCA		=  new TProfile("DptvsNHitsDCA", " #Delta p_{T} vs NHits wiht cut in #eta (-1.5, 1.5) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
-   PtEtaDCA		=  new TProfile("DptvsEtaDCA", " #Delta p_{T} vs #eta with cut #eta (-1.5, 1.5) ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
-   PtDCAGlobalDCA	=  new TProfile("DptvsDCAGDCA", " #Delta p_{T} vs DCAGlobal with cut NHits > 16  ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
-   PtDCAGlobalPDCA	=  new TProfile("DptvsDCAGPDCA", " #Delta p_{T} vs DCAGlobal Primary with cut NHits > 16 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
-   PtDCAGlobalSDCA	=  new TProfile("DptvsDCAGSDCA", " #Delta p_{T} vs DCAGlobal Secondary with cut NHits > 27 ; DCAGlobal ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtNHitsDCA		=  new TProfile("DptvsNHitsDCA", " #Delta p_{T} vs NHits wiht cut in DCA Global > 1 cm ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
+   PtEtaDCA		=  new TProfile("DptvsEtaDCA", " #Delta p_{T} vs #eta with cut in DCA Global > 1 cm ; #eta ; #Delta p_{T} (GeV/c) ", 100, -3, 3, 0, 5);
+   PtDCAGlobalDCA	=  new TProfile("DptvsDCAGDCA", " #Delta p_{T} vs DCAGlobal with cut in DCA Global > 1 cm ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalPDCA	=  new TProfile("DptvsDCAGPDCA", " #Delta p_{T} vs DCAGlobal Primary with cut in DCA Global > 1 cm ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
+   PtDCAGlobalSDCA	=  new TProfile("DptvsDCAGSDCA", " #Delta p_{T} vs DCAGlobal Secondary with cut in DCA Global > 1 cm ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 
-   PtEtaDPtDCA		=  new TProfile2D("PtEtaDPtDCA","#Delta p_{T} with cut #eta (-1,1) ;#eta;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+   PtEtaDPtDCA		=  new TProfile2D("PtEtaDPtDCA","#Delta p_{T} with cut in DCA Global > 1 cm ; #eta ; p_{T} (GeV/c) ; #Delta p_{T} (GeV/c) ",100,-4,4,100,0,5,0,4);
 
 	// With Cuts in Transverse Momentum
    PtNHitsCPT		=  new TProfile("DptvsNHitsCPT", " #Delta p_{T} vs NHits wiht cut in p_{T} > 0.15 (Gev/c) ; NumHits ; #Delta p_{T} (GeV/c) ", 100,0,50,0,15);
@@ -106,7 +106,7 @@ void lowMgF::UserInit(){
    PtDCAGlobalPCPT	=  new TProfile("DptvsDCAGPCPT", " #Delta p_{T} vs DCAGlobal Primary with cut p_{T} > 0.15 (Gev/c) ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
    PtDCAGlobalSCPT	=  new TProfile("DptvsDCAGSCPT", " #Delta p_{T} vs DCAGlobal Secondary with cut p_{T} > 0.15 (GeV/c) ; DCAGlobal (cm) ; #Delta p_{T} (GeV/c) ", 150,0,5,0,15);
 
-   PtEtaDPtCPT		=  new TProfile2D("PtEtaDPtCPT","#Delta p_{T} with cut p_{T} >0.15 (GeV/c) ;#eta ;p_{T} (GeV/c);#Delta p_{T}",100,-4,4,100,0,5,0,4);
+   PtEtaDPtCPT		=  new TProfile2D("PtEtaDPtCPT","#Delta p_{T} with cut p_{T} >0.15 (GeV/c) ;#eta ;p_{T} (GeV/c);#Delta p_{T} (GeV/c)",100,-4,4,100,0,5,0,4);
 
 //------------List Tranverse Momemtum-------------
 	fOutputList -> Add(PtRECOvsEta);	// Monte-Carlo vs Pseudo-Rapidity
@@ -125,22 +125,22 @@ void lowMgF::UserInit(){
 	fOutputList -> Add(PtEtaDPt);		// Resolution 
 
 	// With Cuts in NHits
-	fOutputList -> Add(PtNHitsC);
-	fOutputList -> Add(PtEtaC);
-	fOutputList -> Add(PtDCAGlobalC);
-	fOutputList -> Add(PtDCAGlobalPC);
-	fOutputList -> Add(PtDCAGlobalSC);
+	fOutputList -> Add(PtNHitsC);		// Number of Hits
+	fOutputList -> Add(PtEtaC);		// Pseudo-Rapidity
+	fOutputList -> Add(PtDCAGlobalC);	// DCA Global
+	fOutputList -> Add(PtDCAGlobalPC);	// DCA Global Primary
+	fOutputList -> Add(PtDCAGlobalSC);	// DCA Global Secondary
 
-	fOutputList -> Add(PtEtaDPtC);
+	fOutputList -> Add(PtEtaDPtC);		// Resolution
 
 	// With Cuts in Eta
-	fOutputList -> Add(PtNHitsCE);
-	fOutputList -> Add(PtEtaCE);
+	fOutputList -> Add(PtNHitsCE);		// Number of Hits
+	fOutputList -> Add(PtEtaCE);		// Pseudo-Rapidity
 	fOutputList -> Add(PtDCAGlobalCE);	// DCA Global
 	fOutputList -> Add(PtDCAGlobalPCE);	// DCA Global Primary
 	fOutputList -> Add(PtDCAGlobalSCE);	// DCA Global Secondary
 
-	fOutputList -> Add(PtEtaDPtCE);	
+	fOutputList -> Add(PtEtaDPtCE);		// Resolution
 
 	// With Cuts in DCA Global
 	fOutputList -> Add(PtNHitsDCA);		// Number of Hits
@@ -166,26 +166,26 @@ void lowMgF::UserInit(){
    DCAGSC = new TH1F("DCAGlobalSC","DCA Global Secondary wiht cut in Number of Hits > 27 ; DCA Global (cm) ; Entries", 200, 0, 40);	// DCA Global Secondary
 
 //-------List DCA Global------------------
-	fOutputList -> Add(DCAGC);
-	fOutputList -> Add(DCAGPC);
-	fOutputList -> Add(DCAGSC);
+	fOutputList -> Add(DCAGC);		// DCA Global
+	fOutputList -> Add(DCAGPC);		// DCA Global Primary
+	fOutputList -> Add(DCAGSC);		// DCA Global Secondary
 
 //-------Track Efficiency------------------
 
-   PtRecoPionP	= new TH1F("PtRecoPionP"," p_{T}^{RECO} #pi Primary ", 200, 0, 5);
-   PtRecoPionS	= new TH1F("PtRecoPionS"," p_{T}^{RECO} #pi Secondary ", 200, 0, 5);
-   PtMCPionP	= new TH1F("PtMCPionP"," p_{T}^{MC} #pi Primary ", 200, 0, 5);
-   PtMCPionS	= new TH1F("PtMCPionS"," p_{T}^{MC} #pi Secundary ", 200, 0, 5);
+   PtRecoPionP	= new TH1F("PtRecoPionP"," p_{T}^{RECO} #pi Primary ; Entries ; p_{T}^{RECO}", 200, 0, 5);
+   PtRecoPionS	= new TH1F("PtRecoPionS"," p_{T}^{RECO} #pi Secondary ; Entries ; p_{T}^{RECO}", 200, 0, 5);
+   PtMCPionP	= new TH1F("PtMCPionP"," p_{T}^{MC} #pi Primary ; Entries ; p_{T}^{MC}", 200, 0, 5);
+   PtMCPionS	= new TH1F("PtMCPionS"," p_{T}^{MC} #pi Secundary ;  Entries ; p_{T}^{MC}", 200, 0, 5);
 
-   PtRecoProtonP= new TH1F("PtRecoProtonP"," p_{T}^{RECO} p Primary ", 200, 0, 5);
-   PtRecoProtonS= new TH1F("PtRecoProtonS"," p_{T}^{RECO} p Secondary ", 200, 0, 5);
-   PtMCProtonP  = new TH1F("PtMCProtonP"," p_{T}^{MC} p Primary ", 200, 0, 5);
-   PtMCProtonS  = new TH1F("PtMCProtonS"," p_{T}^{MC} p Secundary", 200, 0, 5);
+   PtRecoProtonP= new TH1F("PtRecoProtonP"," p_{T}^{RECO} p Primary ; Entries ; p_{T}^{RECO} ", 200, 0, 5);
+   PtRecoProtonS= new TH1F("PtRecoProtonS"," p_{T}^{RECO} p Secondary ;  Entries ; p_{T}^{RECO}", 200, 0, 5);
+   PtMCProtonP  = new TH1F("PtMCProtonP"," p_{T}^{MC} p Primary ;  Entries ; p_{T}^{MC}", 200, 0, 5);
+   PtMCProtonS  = new TH1F("PtMCProtonS"," p_{T}^{MC} p Secundary;  Entries ; p_{T}^{MC}", 200, 0, 5);
 
-   PtRecoKaonP	= new TH1F("PtRecoKaonP"," p_{T}^{RECO} #kappa Primary ", 200, 0, 5);
-   PtRecoKaonS	= new TH1F("PtRecoKaonS"," p_{T}^{RECO} #kappa Secondary ", 200, 0, 5);
-   PtMCKaonP	= new TH1F("PtMCKaonP"," p_{T}^{MC} #kappa Primary ", 200, 0, 5);
-   PtMCKaonS	= new TH1F("PtMCKaonS"," p_{T}^{MC} #kappa Secundary ", 200, 0, 5);
+   PtRecoKaonP	= new TH1F("PtRecoKaonP"," p_{T}^{RECO} #kappa Primary ;  Entries ; p_{T}^{RECO}", 200, 0, 5);
+   PtRecoKaonS	= new TH1F("PtRecoKaonS"," p_{T}^{RECO} #kappa Secondary ;  Entries ; p_{T}^{RECO}", 200, 0, 5);
+   PtMCKaonP	= new TH1F("PtMCKaonP"," p_{T}^{MC} #kappa Primary ;  Entries ; p_{T}^{MC}", 200, 0, 5);
+   PtMCKaonS	= new TH1F("PtMCKaonS"," p_{T}^{MC} #kappa Secundary ;  Entries ; p_{T}^{MC}", 200, 0, 5);
 
 //-------List Track Efficiency-------------
 
@@ -257,7 +257,10 @@ void lowMgF::ProcessEvent(MpdAnalysisEvent &event){
 
 //____Cuts______________________________________________________________________
 
-  const Double_t CutNHits = 27;		// My cut is: 27
+  const Double_t CutNHits = 27;		// My cut: 27
+  const Double_t CutEta = 1.5;		// My cut: -1.5 to 1.5.
+  const Double_t CutDCA = 1; 		// My cut: 1 cm
+  const Double_t CutpT = 0.15;		// My cut: 0.15 cm
 
 //-----------------------------------------------
 
@@ -326,9 +329,6 @@ bool make_MC=1;
   	// Reco
    PtRECOvsEta	->	Fill(Eta, pt_reco);
 
-	// No se todavia
-   PtEtaDPt 	->	Fill(Eta, pt_reco,DPt);
-   if(NHits < CutNHits)PtEtaDPtC 	->	Fill(Eta, pt_reco,DPt);
   	// MC
    PtMCvsEta	->	Fill(Eta, pt_mc);
 
@@ -344,47 +344,97 @@ bool make_MC=1;
    // Obtain the Mother ID 
    if (!mctrack)continue; 
 
-   if(mctrack->GetMotherId()==-1) //Primarias
-   {
+   if(mctrack->GetMotherId()==-1){   		// Primary
+
 	PtDCAGlobalP 	->	Fill(DCAG, DPt);
-   	if(NHits < CutNHits)
-        {
-		PtDCAGlobalPC 	->	Fill(DCAG, DPt);
+
+   	if(NHits > CutNHits){
+
+ 		PtDCAGlobalPC 	->	Fill(DCAG, DPt);
 		DCAGPC 	->	Fill(DCAG);
-		if(TMath::Abs(Eta) > 1.5)
-		{
+
+		if(TMath::Abs(Eta) < CutEta){
+
+		 	PtDCAGlobalPCE 	->	Fill(DCAG, DPt);
+
+			if(DCAG > CutDCA){
+
+				PtDCAGlobalPDCA 	->	Fill(DCAG, DPt);
+
+				if(TMath::Abs(pt_reco) > CutpT){
+
+					PtDCAGlobalPCPT 	->	Fill(DCAG, DPt);
+
+				}
+			}
 		}
         }
    }
-   if(mctrack->GetMotherId()!=-1) // Secondary
-   {
+   if(mctrack->GetMotherId()!=-1){		 // Secondary
+
 	PtDCAGlobalS	->	Fill(DCAG, DPt);
-   	if(NHits < CutNHits)
-	{
+
+   	if(NHits > CutNHits){
+
 		PtDCAGlobalSC ->	Fill(DCAG, DPt);
 		DCAGSC	->	Fill(DCAG);
+		if(TMath::Abs(Eta) < CutEta){
+		
+			PtDCAGlobalSCE ->	Fill(DCAG, DPt);
+	
+			if(DCAG > CutDCA){
+	
+				PtDCAGlobalSDCA ->	Fill(DCAG, DPt);
+
+				if(TMath::Abs(pt_reco) > CutpT){
+					
+					PtDCAGlobalSCPT ->	Fill(DCAG, DPt);
+
+				}
+			}
+		}
 	}
    }
 
-   if(NHits < CutNHits)
-   {
+   PtEtaDPt 	->	Fill(Eta, pt_reco,DPt); 	// Resolution
+   if(NHits > CutNHits){
+
    	PtNHitsC	->	Fill(NHits, DPt);
    	PtDCAGlobalC	-> 	Fill(DCAG, DPt);
-   	PtEtaC	-> 	Fill(Eta, DPt);
-	if(TMath::Abs(Eta) > 1.5)
-	{
-	   	PtNHitsCE	->	Fill(NHits, DPt);
-   		PtEtaCE	-> 	Fill(Eta, DPt);
-	        PtEtaDPtCE 	->	Fill(Eta, pt_reco,DPt);
+   	PtEtaC		-> 	Fill(Eta, DPt);
+        PtEtaDPtC 	->	Fill(Eta, pt_reco,DPt); 	//Resolution
 
+	if(TMath::Abs(Eta) < CutEta){
+
+	   	PtNHitsCE	->	Fill(NHits, DPt);
+   		PtDCAGlobalCE	-> 	Fill(DCAG, DPt);
+   		PtEtaCE		-> 	Fill(Eta, DPt);
+	        PtEtaDPtCE 	->	Fill(Eta, pt_reco,DPt); //Resolution
+
+		if(DCAG > CutDCA){
+			
+ 		   	PtNHitsDCA	->	Fill(NHits, DPt);
+   			PtDCAGlobalDCA	-> 	Fill(DCAG, DPt);
+   			PtEtaDCA		-> 	Fill(Eta, DPt);
+              		PtEtaDPtDCA 	->	Fill(Eta, pt_reco,DPt); // Resolution
+		
+			if(TMath::Abs(pt_reco) > CutpT){
+			
+      			   	PtNHitsCPT	->	Fill(NHits, DPt);
+   				PtDCAGlobalCPT	-> 	Fill(DCAG, DPt);
+   				PtEtaCPT	-> 	Fill(Eta, DPt);
+         			PtEtaDPtCPT 	->	Fill(Eta, pt_reco,DPt); // Resolution
+			
+			}	
+		}
 	}
         
    }
 		// Cuts
-  // if(TMath::Abs(pt_reco) < 1.5) continue; 
+   if(TMath::Abs(pt_reco) < CutpT) continue; 
    if(NHits < CutNHits) continue;
-   if(TMath::Abs(Eta) > 1.5) continue;
-   if(DCAG > 1) continue;
+   if(TMath::Abs(Eta) > CutEta) continue;
+   if(DCAG < CutDCA) continue;
 
    DPtPtReco	->	Fill(pt_reco,DPt);
 
@@ -401,9 +451,6 @@ bool make_MC=1;
 	if(pdg == 2212) PtRecoProtonS	->	Fill(pt_reco);
 	if(pdg == 321)  PtRecoKaonS	->	Fill(pt_reco);
    }
-
-
-    
   } // Close the first loop.
  	// Multiplicity
   VtxMult -> Fill(refMult,DZ);
@@ -422,8 +469,8 @@ bool make_MC=1;
      // Absolute PDG
    Int_t abspdg = TMath::Abs( pdg );
 
-  // if(TMath::Abs(pt_mc) < 1.5) continue; 
-   if(TMath::Abs(Eta) > 1.5) continue;		// Cut on the Pseudo-Rapidity
+   if(TMath::Abs(pt_mc) < CutpT) continue; 
+   if(TMath::Abs(Eta) > CutEta) continue;		// Cut on the Pseudo-Rapidity
  
 	// Track Efficiency
    if(mctrack -> GetMotherId() ==-1 ) //Primarias
